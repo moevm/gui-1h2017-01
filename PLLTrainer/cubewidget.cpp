@@ -14,6 +14,21 @@ CubeWidget::CubeWidget(QWidget *parent) : QWidget(parent)
     mainColors[5] = QColor(Qt::blue);
 }
 
+void CubeWidget::changeCurrColors(QColor u, QColor f, QColor r,
+                                  QColor c1, QColor c2, QColor c3,
+                                  QColor c4, QColor c5, QColor c6)
+{
+    upColor = u;
+    frontColor = f;
+    rightColor = r;
+    mainColors[0] = c1;
+    mainColors[1] = c2;
+    mainColors[2] = c3;
+    mainColors[3] = c4;
+    mainColors[4] = c5;
+    mainColors[5] = c6;
+}
+
 void CubeWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
