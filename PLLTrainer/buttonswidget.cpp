@@ -27,61 +27,27 @@ void ButtonsWidget::paintEvent(QPaintEvent *event)
 
     painter.setFont(QFont("arial",20));
 
-    if(hoveredCase == A1){
-        painter.setPen(QPen(Qt::white, 2));
-        painter.setBrush(QBrush(Qt::black));
+    int index = 0;
+    for(std::pair<int, int> currButton: coordinates){
+        if(hoveredCase == (PLLCase) index){
+            painter.setPen(QPen(Qt::white, 2));
+            painter.setBrush(QBrush(Qt::black));
+
+            painter.drawRect(currButton.first * size, currButton.second * size, 3 * size, 3 * size);
+            painter.drawText(QRect(currButton.first * size, currButton.second * size, 3 * size, 3 * size),
+                             "A1", QTextOption(Qt::AlignCenter));
+
+            painter.setPen(QPen(Qt::black, 2));
+            painter.setBrush(QBrush(QColor(0,0,0,0)));
+        }
+        else{
+            painter.drawRect(currButton.first * size, currButton.second * size, 3 * size, 3 * size);
+            painter.drawText(QRect(currButton.first * size, currButton.second * size, 3 * size, 3 * size),
+                             "A1", QTextOption(Qt::AlignCenter));
+        }
+
+        index++;
     }
-    painter.drawRect(2*size, 1*size, 3*size, 3*size);
-    painter.drawText(QRect(2*size, 1*size, 3*size, 3*size), "A1", QTextOption(Qt::AlignCenter));
-    if(hoveredCase == A1){
-        painter.setPen(QPen(Qt::black, 2));
-        painter.setBrush(QBrush(QColor(0,0,0,0)));
-    }
-
-
-
-    painter.drawRect(7*size, 1*size, 3*size, 3*size);
-    painter.drawText(QRect(7*size, 1*size, 3*size, 3*size), "A2", QTextOption(Qt::AlignCenter));
-    painter.drawRect(12*size, 1*size, 3*size, 3*size);
-    painter.drawText(QRect(12*size, 1*size, 3*size, 3*size), "E", QTextOption(Qt::AlignCenter));
-    painter.drawRect(17*size, 1*size, 3*size, 3*size);
-    painter.drawText(QRect(17*size, 1*size, 3*size, 3*size), "Z", QTextOption(Qt::AlignCenter));
-    painter.drawRect(22*size, 1*size, 3*size, 3*size);
-    painter.drawText(QRect(22*size, 1*size, 3*size, 3*size), "H", QTextOption(Qt::AlignCenter));
-    painter.drawRect(27*size, 1*size, 3*size, 3*size);
-    painter.drawText(QRect(27*size, 1*size, 3*size, 3*size), "U1", QTextOption(Qt::AlignCenter));
-    painter.drawRect(32*size, 1*size, 3*size, 3*size);
-    painter.drawText(QRect(32*size, 1*size, 3*size, 3*size), "U2", QTextOption(Qt::AlignCenter));
-
-    painter.drawRect(2*size, 6*size, 3*size, 3*size);
-    painter.drawText(QRect(2*size, 6*size, 3*size, 3*size), "J1", QTextOption(Qt::AlignCenter));
-    painter.drawRect(7*size, 6*size, 3*size, 3*size);
-    painter.drawText(QRect(7*size, 6*size, 3*size, 3*size), "J2", QTextOption(Qt::AlignCenter));
-    painter.drawRect(12*size, 6*size, 3*size, 3*size);
-    painter.drawText(QRect(12*size, 6*size, 3*size, 3*size), "R1", QTextOption(Qt::AlignCenter));
-    painter.drawRect(17*size, 6*size, 3*size, 3*size);
-    painter.drawText(QRect(17*size, 6*size, 3*size, 3*size), "R2", QTextOption(Qt::AlignCenter));
-    painter.drawRect(22*size, 6*size, 3*size, 3*size);
-    painter.drawText(QRect(22*size, 6*size, 3*size, 3*size), "T", QTextOption(Qt::AlignCenter));
-    painter.drawRect(27*size, 6*size, 3*size, 3*size);
-    painter.drawText(QRect(27*size, 6*size, 3*size, 3*size), "Y", QTextOption(Qt::AlignCenter));
-    painter.drawRect(32*size, 6*size, 3*size, 3*size);
-    painter.drawText(QRect(32*size, 6*size, 3*size, 3*size), "F", QTextOption(Qt::AlignCenter));
-
-    painter.drawRect(2*size, 11*size, 3*size, 3*size);
-    painter.drawText(QRect(2*size, 11*size, 3*size, 3*size), "V", QTextOption(Qt::AlignCenter));
-    painter.drawRect(7*size, 11*size, 3*size, 3*size);
-    painter.drawText(QRect(7*size, 11*size, 3*size, 3*size), "N1", QTextOption(Qt::AlignCenter));
-    painter.drawRect(12*size, 11*size, 3*size, 3*size);
-    painter.drawText(QRect(12*size, 11*size, 3*size, 3*size), "N2", QTextOption(Qt::AlignCenter));
-    painter.drawRect(17*size, 11*size, 3*size, 3*size);
-    painter.drawText(QRect(17*size, 11*size, 3*size, 3*size), "G1", QTextOption(Qt::AlignCenter));
-    painter.drawRect(22*size, 11*size, 3*size, 3*size);
-    painter.drawText(QRect(22*size, 11*size, 3*size, 3*size), "G2", QTextOption(Qt::AlignCenter));
-    painter.drawRect(27*size, 11*size, 3*size, 3*size);
-    painter.drawText(QRect(27*size, 11*size, 3*size, 3*size), "G3", QTextOption(Qt::AlignCenter));
-    painter.drawRect(32*size, 11*size, 3*size, 3*size);
-    painter.drawText(QRect(32*size, 11*size, 3*size, 3*size), "G4", QTextOption(Qt::AlignCenter));
 }
 
 void ButtonsWidget::mouseMoveEvent(QMouseEvent *event)
@@ -89,10 +55,20 @@ void ButtonsWidget::mouseMoveEvent(QMouseEvent *event)
     int x = event->x();
     int y = event->y();
 
-    if(x > 2*size && x < 5*size && y > 1*size && y < 4*size){
-        hoveredCase = A1;
+    bool hoveredSomething = false;
+    int index = 0;
+
+    for(std::pair<int, int> currButton: coordinates){
+        if(x > currButton.first * size && x < (currButton.first + 3) * size &&
+                y > currButton.second * size && y < (currButton.second + 3) * size){
+            hoveredCase = (PLLCase) index;
+            hoveredSomething = true;
+            break;
+        }
+        index++;
     }
-    else{
+
+    if(!hoveredSomething){
         hoveredCase = BLANK;
     }
 
