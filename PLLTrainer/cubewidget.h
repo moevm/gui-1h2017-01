@@ -18,7 +18,7 @@ public:
     int size;
     int width;
 
-    QColor cubeCoreColor = QColor(Qt::black);
+    QColor cubeCoreColor;
 
 protected:
     void paintEvent(QPaintEvent *event);

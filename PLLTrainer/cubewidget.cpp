@@ -5,6 +5,7 @@ CubeWidget::CubeWidget(QWidget *parent) : QWidget(parent)
     cube = new Cube();
     size = 20;
     width = 4;
+    cubeCoreColor = QColor(Qt::black);
 }
 
 QColor CubeWidget::getQColor(CubeColor color)
