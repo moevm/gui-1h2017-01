@@ -7,34 +7,78 @@
     <x>0</x>
     <y>0</y>
     <width>656</width>
-    <height>470</height>
+    <height>378</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>PLLTrainer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="CubeWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>30</y>
-      <width>371</width>
-      <height>301</height>
+      <x>20</x>
+      <y>20</y>
+      <width>301</width>
+      <height>291</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>370</y>
-      <width>75</width>
-      <height>23</height>
+      <x>20</x>
+      <y>320</y>
+      <width>111</width>
+      <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>Scramble</string>
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="resultLabel">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>320</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalResultLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>350</y>
+      <width>191</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
