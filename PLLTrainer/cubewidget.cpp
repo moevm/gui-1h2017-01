@@ -2,38 +2,36 @@
 
 CubeWidget::CubeWidget(QWidget *parent) : QWidget(parent)
 {
-    SIZE = 20;
-    upColor = QColor(Qt::white);
-    rightColor = QColor(Qt::blue);
-    frontColor = QColor(Qt::red);
-    mainColors[0] = QColor(Qt::red);
-    mainColors[1] = QColor(Qt::red);
-    mainColors[2] = QColor(Qt::red);
-    mainColors[3] = QColor(Qt::blue);
-    mainColors[4] = QColor(Qt::blue);
-    mainColors[5] = QColor(Qt::blue);
+    cube = new Cube();
 }
 
-void CubeWidget::changeCurrColors(QColor u, QColor f, QColor r,
-                                  QColor c1, QColor c2, QColor c3,
-                                  QColor c4, QColor c5, QColor c6)
+QColor CubeWidget::getQColor(CubeColor color)
 {
-    upColor = u;
-    frontColor = f;
-    rightColor = r;
-    mainColors[0] = c1;
-    mainColors[1] = c2;
-    mainColors[2] = c3;
-    mainColors[3] = c4;
-    mainColors[4] = c5;
-    mainColors[5] = c6;
+    switch (color) {
+    case WHITE:
+        return QColor(Qt::white);
+    case YELLOW:
+        return QColor(Qt::yellow);
+    case BLUE:
+        return QColor(Qt::blue);
+    case GREEN:
+        return QColor(Qt::green);
+    case RED:
+        return QColor(Qt::red);
+    case ORANGE:
+        return QColor(255, 165, 0);
+    default:
+        return QColor(Qt::black);
+    }
 }
 
 void CubeWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setPen(QPen(Qt::black, 4));
-    painter.setBrush(QBrush(mainColors[0], Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->mainColors[0]), Qt::SolidPattern));
+
+    int SIZE = cube->SIZE;
 
     // Рисуем переднюю часть
 
@@ -46,7 +44,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
 
     painter.drawPolygon(QPolygon(p), Qt::OddEvenFill);
 
-    painter.setBrush(QBrush(mainColors[1], Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->mainColors[1]), Qt::SolidPattern));
 
     p.clear();
 
@@ -57,7 +55,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
 
     painter.drawPolygon(QPolygon(p), Qt::OddEvenFill);
 
-    painter.setBrush(QBrush(mainColors[2], Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->mainColors[2]), Qt::SolidPattern));
 
     p.clear();
 
@@ -68,7 +66,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
 
     painter.drawPolygon(QPolygon(p), Qt::OddEvenFill);
 
-    painter.setBrush(QBrush(frontColor, Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->frontColor), Qt::SolidPattern));
 
     p.clear();
 
@@ -128,7 +126,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
 
     // Рисуем верхнюю часть
 
-    painter.setBrush(QBrush(upColor, Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->upColor), Qt::SolidPattern));
 
     p.clear();
 
@@ -213,7 +211,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
 
     // Рисуем правую часть
 
-    painter.setBrush(QBrush(mainColors[3], Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->mainColors[3]), Qt::SolidPattern));
 
     p.clear();
 
@@ -224,7 +222,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
 
     painter.drawPolygon(QPolygon(p), Qt::OddEvenFill);
 
-    painter.setBrush(QBrush(mainColors[4], Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->mainColors[4]), Qt::SolidPattern));
 
     p.clear();
 
@@ -235,7 +233,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
 
     painter.drawPolygon(QPolygon(p), Qt::OddEvenFill);
 
-    painter.setBrush(QBrush(mainColors[5], Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->mainColors[5]), Qt::SolidPattern));
 
     p.clear();
 
@@ -246,7 +244,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
 
     painter.drawPolygon(QPolygon(p), Qt::OddEvenFill);
 
-    painter.setBrush(QBrush(rightColor, Qt::SolidPattern));
+    painter.setBrush(QBrush(getQColor(cube->rightColor), Qt::SolidPattern));
 
     p.clear();
 

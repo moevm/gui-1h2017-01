@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-CONFIG += c++11
+CONFIG += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,10 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    cubewidget.cpp
+    cubewidget.cpp \
+    cube.cpp \
+    settings.cpp
 
 HEADERS  += mainwindow.h \
-    cubewidget.h
+    cubewidget.h \
+    cube.h \
+    settings.h \
+    cubecolors.h
 
 FORMS    += mainwindow.ui
 

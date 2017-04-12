@@ -17,11 +17,24 @@
    <widget class="CubeWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>120</y>
+      <x>130</x>
+      <y>30</y>
       <width>371</width>
       <height>301</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>370</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Scramble</string>
     </property>
    </widget>
   </widget>

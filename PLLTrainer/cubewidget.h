@@ -4,22 +4,17 @@
 #include <QWidget>
 #include <QPainter>
 #include <QColor>
+#include "cube.h"
 
 class CubeWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CubeWidget(QWidget *parent = 0);
+    explicit CubeWidget(QWidget *parent = 0);\
 
-    void changeCurrColors(QColor u, QColor f, QColor r,
-                          QColor c1, QColor c2, QColor c3,
-                          QColor c4, QColor c5, QColor c6);
+    QColor getQColor(CubeColor color);
 
-    int SIZE;
-    QColor upColor;
-    QColor frontColor;
-    QColor rightColor;
-    QColor mainColors[6];
+    Cube *cube;
 
 protected:
     void paintEvent(QPaintEvent *event);
