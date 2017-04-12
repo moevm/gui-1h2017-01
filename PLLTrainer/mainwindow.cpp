@@ -26,6 +26,7 @@ void MainWindow::on_startButton_clicked()
 {
     cubeManager->startSession();
     ui->resultLabel->clear();
+    ui->totalResultLabel->clear();
     update();
 }
 
@@ -154,16 +155,21 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         return;
     }
 
+    QString succAttempts =  QString::number(cubeManager->currentSuccessfulAttempts);
+    QString attempts = QString::number(Settings::Instance().attempts);
+
     if (isCorrect) {
-        ui->resultLabel->setText("Right! (" + QString::number(cubeManager->currentSuccessfulAttempts) +
-                                 "/" + QString::number(Settings::Instance().attempts) + ")");
+        ui->resultLabel->setText("Right! (" + succAttempts + "/" + attempts + ")");
         ui->resultLabel->setStyleSheet("QLabel { color : green; }");
     }
     else {
-        ui->resultLabel->setText("No, that was " + pllNames[lastPLLCase] + " (" +
-                                 QString::number(cubeManager->currentSuccessfulAttempts) +
-                                 "/" + QString::number(Settings::Instance().attempts) + ")");
+        ui->resultLabel->setText("No, that was " + pllNames[lastPLLCase] + " (" + succAttempts + "/" + attempts + ")");
         ui->resultLabel->setStyleSheet("QLabel { color : red; }");
+    }
+    if (cubeManager->currentAttempts == Settings::Instance().attempts) {
+        int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / Settings::Instance().attempts;
+        ui->totalResultLabel->setText("Your result: " + QString::number(rate) + "%");
+
     }
     update();
 
