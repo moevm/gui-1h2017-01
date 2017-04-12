@@ -8,18 +8,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->cubeManager = new CubeManager(ui->widget->cube);
+    this->cubeManager = new CubeManager(ui->cubeWidget->cube);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-    ui->widget->cube->scrabmle();
-    update();
 }
 
 void MainWindow::on_startButton_clicked()
