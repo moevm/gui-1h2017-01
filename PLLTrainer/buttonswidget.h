@@ -3,7 +3,10 @@
 
 #include <QWidget>
 #include <QList>
+#include <array>
 #include "pllcases.h"
+#include "cubemanager.h"
+#include "mainwindow.h"
 
 class ButtonsWidget : public QWidget
 {
@@ -13,6 +16,9 @@ public:
 
     int size;
     PLLCase hoveredCase;
+
+    CubeManager *cubeManager;
+    MainWindow *mw;
 
     std::array<std::pair<int, int>, 21> coordinates;
 
