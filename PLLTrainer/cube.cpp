@@ -1,6 +1,6 @@
 #include "cube.h"
 #include <QTime>
-
+#include <array>
 Cube::Cube()
 {
     upColor = WHITE;

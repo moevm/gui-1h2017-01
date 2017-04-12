@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QList>
 #include "pllcases.h"
+#include <array>
+
 
 class ButtonsWidget : public QWidget
 {
