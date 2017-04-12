@@ -11,6 +11,8 @@ public:
     CubeColor downColor;
     bool isMulticolor;
     bool doSetupMove; // Сделать ли дополнительный ход после применения PLL алгоритма
+    int attempts;
+
 private:
     Settings();
 };

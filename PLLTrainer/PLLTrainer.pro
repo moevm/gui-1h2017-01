@@ -28,13 +28,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     cubewidget.cpp \
     cube.cpp \
-    settings.cpp
+    settings.cpp \
+    cubemanager.cpp
 
 HEADERS  += mainwindow.h \
     cubewidget.h \
     cube.h \
     settings.h \
-    cubecolors.h
+    cubecolors.h \
+    cubemanager.h
 
 FORMS    += mainwindow.ui
 
