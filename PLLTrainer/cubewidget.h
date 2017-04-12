@@ -15,6 +15,10 @@ public:
     QColor getQColor(CubeColor color);
 
     Cube *cube;
+    int size;
+    int width;
+
+    QColor cubeCoreColor = QColor(Qt::black);
 
 protected:
     void paintEvent(QPaintEvent *event);

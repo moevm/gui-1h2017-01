@@ -3,7 +3,6 @@
 
 Cube::Cube()
 {
-    SIZE = 20;
     upColor = WHITE;
     rightColor = BLUE;
     frontColor = RED;
@@ -14,7 +13,6 @@ Cube::Cube()
     mainColors[4] = BLUE;
     mainColors[5] = BLUE;
 }
-#include <QDebug>
 
 PLLCase Cube::scrabmle()
 {
