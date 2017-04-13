@@ -173,3 +173,53 @@ std::array<int, Cube::PIECESPERSIDE - 1> Cube::getAlgorithm(PLLCase pllCase)
     }
     return algo;
 }
+
+const QString Cube::getPLLName(PLLCase pllCase)
+{
+    switch (pllCase) {
+    case A1:
+        return "A1";
+    case A2:
+        return "A2";
+    case E:
+        return "E";
+    case Z:
+        return "Z";
+    case H:
+        return "H";
+    case U1:
+        return "U1";
+    case U2:
+        return "U2";
+    case J1:
+        return "J1";
+    case J2:
+        return "J2";
+    case R1:
+        return "R1";
+    case R2:
+        return "R2";
+    case T:
+        return "T";
+    case Y:
+        return "Y";
+    case F:
+        return "F";
+    case V:
+        return "V";
+    case N1:
+        return "N1";
+    case N2:
+        return "N2";
+    case G1:
+        return "G1";
+    case G2:
+        return "G2";
+    case G3:
+        return "G3";
+    case G4:
+        return "G4";
+    default:
+        return "BLANK";
+    }
+}

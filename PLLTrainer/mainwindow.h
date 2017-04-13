@@ -19,6 +19,8 @@ class MainWindow : public QMainWindow
 public:
     CubeManager* cubeManager;
     explicit MainWindow(QWidget *parent = 0);
+    void setResults(bool result, PLLCase lastPLLCase);
+    Qt::Key firstLetter;
     ~MainWindow();
 
 private slots:
@@ -26,7 +28,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Qt::Key firstLetter;
     void keyPressEvent(QKeyEvent *event);
     QList<QString> pllNames = {"A1", "A2", "E", "Z", "H", "U1", "U2", "J1", "J2", "R1", "R2",
                                "T", "Y", "F", "V", "N1", "N2", "G1", "G2", "G3", "G4"};

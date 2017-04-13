@@ -1,6 +1,7 @@
 #include "buttonswidget.h"
 #include <QPainter>
 #include <QMouseEvent>
+#include "cube.h"
 
 #include <QDebug>
 
@@ -35,7 +36,7 @@ void ButtonsWidget::paintEvent(QPaintEvent *event)
 
             painter.drawRect(currButton.first * size, currButton.second * size, 3 * size, 3 * size);
             painter.drawText(QRect(currButton.first * size, currButton.second * size, 3 * size, 3 * size),
-                             "A1", QTextOption(Qt::AlignCenter));
+                             Cube::getPLLName((PLLCase) index), QTextOption(Qt::AlignCenter));
 
             painter.setPen(QPen(Qt::black, 2));
             painter.setBrush(QBrush(QColor(0,0,0,0)));
@@ -43,7 +44,7 @@ void ButtonsWidget::paintEvent(QPaintEvent *event)
         else{
             painter.drawRect(currButton.first * size, currButton.second * size, 3 * size, 3 * size);
             painter.drawText(QRect(currButton.first * size, currButton.second * size, 3 * size, 3 * size),
-                             "A1", QTextOption(Qt::AlignCenter));
+                             Cube::getPLLName((PLLCase) index), QTextOption(Qt::AlignCenter));
         }
 
         index++;
@@ -77,5 +78,10 @@ void ButtonsWidget::mouseMoveEvent(QMouseEvent *event)
 
 void ButtonsWidget::mousePressEvent(QMouseEvent *event)
 {
+    if(hoveredCase == BLANK || !cubeManager->isSession) return;
 
+    PLLCase actualPLLCase = cubeManager->currentPLLCase;
+    bool res = cubeManager->checkUserChoice(hoveredCase);
+    mw->firstLetter = Qt::Key_No;
+    mw->setResults(res, actualPLLCase);
 }

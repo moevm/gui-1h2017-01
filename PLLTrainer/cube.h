@@ -5,6 +5,8 @@
 #include "cubecolors.h"
 #include "pllcases.h"
 #include <QList>
+#include <QString>
+#include <array>
 
 class Cube
 {
@@ -18,6 +20,7 @@ public:
 
     PLLCase scrabmle();
     std::array<int, PIECESPERSIDE - 1> getAlgorithm(PLLCase pllCase);
+    static const QString getPLLName(PLLCase pllCase);
 
     CubeColor upColor;
     CubeColor frontColor;

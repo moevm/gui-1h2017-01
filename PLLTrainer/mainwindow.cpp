@@ -9,6 +9,29 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->cubeManager = new CubeManager(ui->cubeWidget->cube);
+    ui->buttons->cubeManager = this->cubeManager;
+    ui->buttons->mw = this;
+}
+
+void MainWindow::setResults(bool result, PLLCase lastPLLCase)
+{
+    QString succAttempts =  QString::number(cubeManager->currentSuccessfulAttempts);
+    QString attempts = QString::number(cubeManager->currentAttempts);
+
+    if (result) {
+        ui->resultLabel->setText("Right! (" + succAttempts + "/" + attempts + ")");
+        ui->resultLabel->setStyleSheet("QLabel { color : green; }");
+    }
+    else {
+        ui->resultLabel->setText("No, that was " + pllNames[lastPLLCase] + " (" + succAttempts + "/" + attempts + ")");
+        ui->resultLabel->setStyleSheet("QLabel { color : red; }");
+    }
+    if (cubeManager->currentAttempts == Settings::Instance().attempts) {
+        int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / Settings::Instance().attempts;
+        ui->totalResultLabel->setText("Your result: " + QString::number(rate) + "%");
+    }
+
+    update();
 }
 
 MainWindow::~MainWindow()
@@ -149,22 +172,5 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         return;
     }
 
-    QString succAttempts =  QString::number(cubeManager->currentSuccessfulAttempts);
-    QString attempts = QString::number(Settings::Instance().attempts);
-
-    if (isCorrect) {
-        ui->resultLabel->setText("Right! (" + succAttempts + "/" + attempts + ")");
-        ui->resultLabel->setStyleSheet("QLabel { color : green; }");
-    }
-    else {
-        ui->resultLabel->setText("No, that was " + pllNames[lastPLLCase] + " (" + succAttempts + "/" + attempts + ")");
-        ui->resultLabel->setStyleSheet("QLabel { color : red; }");
-    }
-    if (cubeManager->currentAttempts == Settings::Instance().attempts) {
-        int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / Settings::Instance().attempts;
-        ui->totalResultLabel->setText("Your result: " + QString::number(rate) + "%");
-
-    }
-    update();
-
+    setResults(isCorrect, lastPLLCase);
 }
