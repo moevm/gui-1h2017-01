@@ -8,6 +8,7 @@
 #include <QList>
 #include <QString>
 #include <QTimer>
+#include "settingsform.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,8 +32,11 @@ private slots:
     void on_startButton_clicked();
     void updateTimer();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    SettingsForm *settingsform;
     void keyPressEvent(QKeyEvent *event);
     QList<QString> pllNames = {"A1", "A2", "E", "Z", "H", "U1", "U2", "J1", "J2", "R1", "R2",
                                "T", "Y", "F", "V", "N1", "N2", "G1", "G2", "G3", "G4"};

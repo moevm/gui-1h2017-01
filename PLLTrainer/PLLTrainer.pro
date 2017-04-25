@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     cube.cpp \
     settings.cpp \
     cubemanager.cpp \
-    buttonswidget.cpp
+    buttonswidget.cpp \
+    settingsform.cpp
 
 HEADERS  += mainwindow.h \
     cubewidget.h \
@@ -39,8 +40,10 @@ HEADERS  += mainwindow.h \
     cubecolors.h \
     cubemanager.h \
     buttonswidget.h \
-    pllcases.h
+    pllcases.h \
+    settingsform.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    settingsform.ui
 
 

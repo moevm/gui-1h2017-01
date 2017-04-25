@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "cubemanager.h"
 #include <QDebug>
-
+#include "settingsform.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -12,8 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->buttons->cubeManager = this->cubeManager;
     ui->buttons->mw = this;
     timer = new QTimer(this);
+    settingsform = new SettingsForm(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
+    connect(ui->pushButton, SIGNAL(clicked()), settingsform , SLOT(show()));
     timer->start(UPDATE_TIME);
+
 }
 
 void MainWindow::setResults(bool result, PLLCase lastPLLCase)
@@ -181,4 +184,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 
 void MainWindow::updateTimer() {
     ui->timerLabel->setText(cubeManager->getTimerValueString());
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+
 }
