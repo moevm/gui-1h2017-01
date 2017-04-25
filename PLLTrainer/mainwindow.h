@@ -7,6 +7,7 @@
 #include <QKeyEvent>
 #include <QList>
 #include <QString>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -17,14 +18,18 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    const int UPDATE_TIME = 40;
+
     CubeManager* cubeManager;
     explicit MainWindow(QWidget *parent = 0);
     void setResults(bool result, PLLCase lastPLLCase);
     Qt::Key firstLetter;
+    QTimer* timer;
     ~MainWindow();
 
 private slots:
     void on_startButton_clicked();
+    void updateTimer();
 
 private:
     Ui::MainWindow *ui;

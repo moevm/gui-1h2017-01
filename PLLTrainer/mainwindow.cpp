@@ -11,11 +11,14 @@ MainWindow::MainWindow(QWidget *parent) :
     this->cubeManager = new CubeManager(ui->cubeWidget->cube);
     ui->buttons->cubeManager = this->cubeManager;
     ui->buttons->mw = this;
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
+    timer->start(UPDATE_TIME);
 }
 
 void MainWindow::setResults(bool result, PLLCase lastPLLCase)
 {
-    QString succAttempts =  QString::number(cubeManager->currentSuccessfulAttempts);
+    QString succAttempts = QString::number(cubeManager->currentSuccessfulAttempts);
     QString attempts = QString::number(cubeManager->currentAttempts);
 
     if (result) {
@@ -173,4 +176,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     }
 
     setResults(isCorrect, lastPLLCase);
+}
+
+
+void MainWindow::updateTimer() {
+    ui->timerLabel->setText(cubeManager->getTimerValueString());
 }

@@ -12,24 +12,28 @@ void CubeManager::startSession() {
     isSession = true;
     currentAttempts = 0;
     currentSuccessfulAttempts = 0;
+    startTime = QTime::currentTime();
 }
 
 bool CubeManager::checkUserChoice(PLLCase userChoice) {
+
     bool isCorrect = userChoice == currentPLLCase;
     currentPLLCase = cube->scrabmle();
-
-
-    //just for debug, don't be scared
-    QList<QString> names = {"A1", "A2", "E", "Z", "H", "U1", "U2", "J1", "J2", "R1", "R2",
-                               "T", "Y", "F", "V", "N1", "N2", "G1", "G2", "G3", "G4"};
-    qDebug() << "(" << names[currentPLLCase] << ")";
-
-
     if (isCorrect) currentSuccessfulAttempts++;
     currentAttempts++;
     if (currentAttempts == Settings::Instance().attempts) {
         isSession = false;
+        finishTime = QTime::currentTime();
     }
     return isCorrect;
+}
+
+QString CubeManager::getTimerValueString() {
+    int ms;
+    if (isSession) ms = startTime.msecsTo(QTime::currentTime());
+    else ms = startTime.msecsTo(finishTime);
+    QTime time(0, 0, 0, 0);
+    time = time.addMSecs(ms);
+    return time.toString("mm:ss.zzz");
 }
 
