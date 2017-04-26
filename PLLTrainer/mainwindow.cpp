@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timer = new QTimer(this);
     settingsform = new SettingsForm(this);
 
-    QFile fileOut("/Users/arturazarov/Krinkin/PLLTrainer/settings.txt");
+    QFile fileOut("settings.txt");
     fileOut.open(QIODevice::ReadWrite);
     QString str = fileOut.readLine();
     QStringList values ;

@@ -4,3 +4,4 @@ build*
 *.h.*
 *.ui.*
 PLLTrainer.pro.*
+PLLTrainer.exe
