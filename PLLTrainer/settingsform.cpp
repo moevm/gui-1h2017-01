@@ -59,7 +59,9 @@ void SettingsForm::setHardMode(bool value)
 
 void SettingsForm::updateUI()
 {
-    QFile fileOut("/Users/arturazarov/Krinkin/PLLTrainer/settings.txt");
+
+    QFile fileOut("settings.txt");
+
     fileOut.open(QIODevice::ReadWrite);
     QString str = fileOut.readLine();
     QStringList values ;
@@ -83,14 +85,9 @@ void SettingsForm::updateUI()
     setHardMode(hardMode);
 }
 
-//void SettingsForm::on_buttonBox_clicked(QAbstractButton *button)
-//{
-
-//}
-
 void SettingsForm::on_buttonBox_accepted()
 {
-    QFile fileOut("/Users/arturazarov/Krinkin/PLLTrainer/settings.txt");
+    QFile fileOut("settings.txt");
     fileOut.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
     QTextStream writeStream(&fileOut);
 
