@@ -2,8 +2,8 @@
 #define SETTINGSFORM_H
 
 #include <QDialog>
-#include <string>
 #include "cubecolors.h"
+
 namespace Ui {
 class SettingsForm;
 }
@@ -26,6 +26,8 @@ public:
     void setHardMode(bool value);
 
     void updateUI();
+
+    const QString settingsFile = "settings.txt";
 
 
 private slots:

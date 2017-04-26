@@ -59,8 +59,7 @@ void SettingsForm::setHardMode(bool value)
 
 void SettingsForm::updateUI()
 {
-
-    QFile fileOut("settings.txt");
+    QFile fileOut(settingsFile);
 
     fileOut.open(QIODevice::ReadWrite);
     QString str = fileOut.readLine();
@@ -87,7 +86,7 @@ void SettingsForm::updateUI()
 
 void SettingsForm::on_buttonBox_accepted()
 {
-    QFile fileOut("settings.txt");
+    QFile fileOut(settingsFile);
     fileOut.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
     QTextStream writeStream(&fileOut);
 
