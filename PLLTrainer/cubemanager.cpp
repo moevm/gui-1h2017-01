@@ -39,6 +39,5 @@ QString CubeManager::getTimerValueString() {
 void CubeManager::finishSession() {
     isSession = false;
     finishTime = QTime::currentTime();
-    qDebug() << "finish set";
 }
 

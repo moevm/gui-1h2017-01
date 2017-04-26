@@ -61,27 +61,50 @@ void SettingsForm::updateUI()
 {
     QFile fileOut(settingsFile);
 
-    fileOut.open(QIODevice::ReadWrite);
-    QString str = fileOut.readLine();
-    QStringList values ;
-    values = str.split(" ");
-    QTextStream out(stdout);
-    foreach(QString x, values)
-        out << x << endl;
-    fileOut.close();
+    if(fileOut.exists()){
+        fileOut.open(QIODevice::ReadWrite);
+        QString str = fileOut.readLine();
+        QStringList values ;
+        values = str.split(" ");
+        fileOut.close();
 
-    int countAttempts = values[1].toInt();
-    int intColor = values[0].toInt();
-    int intRandomMode = values[3].toInt();
-    bool randomMode = bool(intRandomMode);
-    int intHardMode = values[2].toInt();
-    bool hardMode = bool(intHardMode);
-    CubeColor color = (CubeColor) intColor;
+        int countAttempts, intColor, intRandomMode, intHardMode;
+        bool randomMode, hardMode;
+        CubeColor color;
 
-    set_attempts(countAttempts);
-    set_color(color);
-    setRandomMode(randomMode);
-    setHardMode(hardMode);
+        try{
+            countAttempts = values[1].toInt();
+            intColor = values[0].toInt();
+            intRandomMode = values[3].toInt();
+            randomMode = bool(intRandomMode);
+            intHardMode = values[2].toInt();
+            hardMode = bool(intHardMode);
+            color = (CubeColor) intColor;
+        }
+        catch(...){
+            countAttempts = 20;
+            color = WHITE;
+            randomMode = hardMode = false;
+        }
+
+        set_attempts(countAttempts);
+        set_color(color);
+        setRandomMode(randomMode);
+        setHardMode(hardMode);
+    }
+    else{
+        QFile file(settingsFile);
+        if (file.open(QIODevice::ReadWrite)) {
+            QTextStream stream(&file);
+            stream << "0 20 0 0";
+
+            set_attempts(20);
+            set_color(WHITE);
+            setRandomMode(0);
+            setHardMode(0);
+        }
+        file.close();
+    }
 }
 
 void SettingsForm::on_buttonBox_accepted()

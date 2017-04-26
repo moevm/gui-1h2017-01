@@ -27,12 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
     Settings::Instance().isMulticolor = settingsform->isRandomMode();
 
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
-    connect(ui->pushButton, SIGNAL(clicked()), settingsform , SLOT(show()));
+    connect(ui->settingsButton, SIGNAL(clicked()), settingsform , SLOT(show()));
     timer->start(UPDATE_TIME);
 
     ui->startButton->setFocusPolicy(Qt::NoFocus);
     ui->stopButton->setFocusPolicy(Qt::NoFocus);
-    ui->pushButton->setFocusPolicy(Qt::NoFocus);
+    ui->settingsButton->setFocusPolicy(Qt::NoFocus);
 }
 
 void MainWindow::setResults(bool result, PLLCase lastPLLCase)
@@ -206,12 +206,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 void MainWindow::updateTimer() {
     ui->timerLabel->setText(cubeManager->getTimerValueString());
 }
-
-void MainWindow::on_pushButton_clicked()
-{
-
-}
-
 
 
 void MainWindow::on_stopButton_clicked()
