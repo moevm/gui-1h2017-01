@@ -46,4 +46,7 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     settingsform.ui
 
+DISTFILES += \
+    settings.txt
+
 

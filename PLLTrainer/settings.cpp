@@ -2,7 +2,7 @@
 
 Settings::Settings()
 {
-    downColor = WHITE;
+    downColor =   YELLOW;
     isMulticolor = false;
     doSetupMove = true;
     attempts = 12;

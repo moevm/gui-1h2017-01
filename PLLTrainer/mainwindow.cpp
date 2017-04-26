@@ -3,6 +3,21 @@
 #include "cubemanager.h"
 #include <QDebug>
 #include "settingsform.h"
+#include "settings.h"
+#include <string>
+#include <QTextStream>
+
+CubeColor convertToCubeColor(int string){
+    switch(string){
+        case 0: return YELLOW;
+        case 4: return GREEN;
+        case 5: return BLUE;
+        case 1: return WHITE;
+        case 3: return ORANGE;
+        case 2: return RED;
+    }
+};
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -13,9 +28,35 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->buttons->mw = this;
     timer = new QTimer(this);
     settingsform = new SettingsForm(this);
+
+    QFile fileOut("/Users/arturazarov/Krinkin/PLLTrainer/settings.txt");
+    fileOut.open(QIODevice::ReadWrite);
+    QString str = fileOut.readLine();
+    QStringList values ;
+    values = str.split(" ");
+    QTextStream out(stdout);
+    foreach(QString x, values)
+        out << x << endl;
+    fileOut.close();
+
+    int countAttempts = values[1].toInt();
+    int intColor = values[0].toInt();
+    int intRandomMode = values[3].toInt();
+    bool randomMode = bool(intRandomMode);
+    int intHardMode = values[2].toInt();
+    bool hardMode = bool(intHardMode);
+    CubeColor color = convertToCubeColor(intColor);
+
+    settingsform->set_attempts(countAttempts);
+    settingsform->set_color(color);
+    settingsform->setRandomMode(randomMode);
+    settingsform->setHardMode(hardMode);
+
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
     connect(ui->pushButton, SIGNAL(clicked()), settingsform , SLOT(show()));
     timer->start(UPDATE_TIME);
+
+
 
 }
 
@@ -190,3 +231,5 @@ void MainWindow::on_pushButton_clicked()
 {
 
 }
+
+

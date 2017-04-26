@@ -78,3 +78,4 @@ void CubeWidget::paintEvent(QPaintEvent *event)
         painter.drawPolygon(QPolygon(points));
     }
 }
+
