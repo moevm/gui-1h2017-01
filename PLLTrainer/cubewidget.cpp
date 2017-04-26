@@ -36,10 +36,10 @@ void CubeWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setPen(QPen(borderColor, borderWidth));
     painter.setBrush(QBrush(hideColor));
-    painter.setRenderHint(QPainter::Antialiasing);
+    //painter.setRenderHint(QPainter::Antialiasing);
 
-    painter.fillRect(0, 0, this->width(), this->height(), Qt::white);
-    float size = (float) this->width() / 6;
+    //painter.fillRect(0, 0, this->width(), this->height(), Qt::white);
+    size = this->width() / 14;
 
     //front
     if (!isHiding) painter.setBrush(QBrush(getQColor(cube->frontColor)));
@@ -47,7 +47,7 @@ void CubeWidget::paintEvent(QPaintEvent *event)
         CubeColor color = cube->frontColor;
         if (i < 3) color = cube->mainColors[i];
         if (!isHiding) painter.setBrush(QBrush(getQColor(color)));
-        painter.drawRect(size + (i % 3) * size, (2 + i/3) * size, size, size);
+        painter.drawRect(size + (i % 3) * 3 * size, 4 * size + (i / 3) * 3 * size, 3 * size, 3 * size);
     }
 
     //right
@@ -56,12 +56,12 @@ void CubeWidget::paintEvent(QPaintEvent *event)
         CubeColor color = cube->rightColor;
         if (i < 3) color = cube->mainColors[i+3];
         if (!isHiding) painter.setBrush(QBrush(getQColor(color)));
-        int x = 4 * size + (i % 3) * size / 3;
-        int y = 2 * size + (i / 3) * size - (i % 3) * size / 3;
+        int x = 10 * size + (i % 3) * size;
+        int y = 4 * size + (i / 3) * 3 * size - (i % 3) * size;
         points.append(QPoint(x, y));
-        points.append(QPoint(x + size / 3, y - size / 3));
-        points.append(QPoint(x + size / 3, y + size - size / 3));
-        points.append(QPoint(x, y + size));
+        points.append(QPoint(x + size, y - size));
+        points.append(QPoint(x + size, y + 2 * size));
+        points.append(QPoint(x, y + 3 * size));
         painter.drawPolygon(QPolygon(points));
     }
 
@@ -69,14 +69,12 @@ void CubeWidget::paintEvent(QPaintEvent *event)
     if (!isHiding) painter.setBrush(QBrush(getQColor(cube->upColor)));
     for (int i = 0; i < 9; i++) {
         QVector<QPoint> points;
-        int x = size + (3 - i / 3) * size / 3 + (i % 3) * size;
-        int y = size + (i / 3) * size / 3;
+        int x = 2 * size + (i / 3) * size + (i % 3) * 3 * size;
+        int y = 3 * size - (i / 3) * size;
         points.append(QPoint(x, y));
-        points.append(QPoint(x + size, y));
-        points.append(QPoint(x + size - size / 3, y + size / 3));
-        points.append(QPoint(x - size / 3, y + size / 3));
+        points.append(QPoint(x + 3 * size, y));
+        points.append(QPoint(x + 2 * size, y + size));
+        points.append(QPoint(x - size, y + size));
         painter.drawPolygon(QPolygon(points));
     }
-
-    painter.end();
 }
