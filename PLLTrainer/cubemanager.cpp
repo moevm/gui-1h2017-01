@@ -34,6 +34,8 @@ QString CubeManager::getTimerValueString() {
     else ms = startTime.msecsTo(finishTime);
     QTime time(0, 0, 0, 0);
     time = time.addMSecs(ms);
-    return time.toString("mm:ss.zzz");
+    QString timeString = time.toString("mm:ss.zzz");
+    timeString.chop(1);
+    return timeString;
 }
 

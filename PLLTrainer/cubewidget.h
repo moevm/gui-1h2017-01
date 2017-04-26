@@ -16,9 +16,13 @@ public:
 
     Cube *cube;
     int size;
-    int width;
+    int borderWidth;
+    bool isHiding;
 
     QColor cubeCoreColor;
+    QColor borderColor;
+    QColor hideColor;
+
 
 protected:
     void paintEvent(QPaintEvent *event);

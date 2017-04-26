@@ -4,8 +4,11 @@ CubeWidget::CubeWidget(QWidget *parent) : QWidget(parent)
 {
     cube = new Cube();
     size = 20;
-    width = 4;
     cubeCoreColor = QColor(Qt::black);
+    borderWidth = 4;
+    borderColor = QColor(Qt::black);
+    hideColor = QColor(Qt::gray);
+    isHiding = false;
 }
 
 QColor CubeWidget::getQColor(CubeColor color)
@@ -31,273 +34,49 @@ QColor CubeWidget::getQColor(CubeColor color)
 void CubeWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-
-    painter.setPen(QPen(cubeCoreColor, width));
-    painter.setBrush(QBrush(getQColor(cube->mainColors[0])));
-
-    // Рисуем переднюю часть
-
-    QVector<QPoint> p;
-
-    p.append(QPoint(1*size, 4*size));
-    p.append(QPoint(4*size, 4*size));
-    p.append(QPoint(4*size, 7*size));
-    p.append(QPoint(1*size, 7*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    painter.setBrush(QBrush(getQColor(cube->mainColors[1])));
-
-    p.clear();
-
-    p.append(QPoint(4*size, 4*size));
-    p.append(QPoint(7*size, 4*size));
-    p.append(QPoint(7*size, 7*size));
-    p.append(QPoint(4*size, 7*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    painter.setBrush(QBrush(getQColor(cube->mainColors[2])));
-
-    p.clear();
-
-    p.append(QPoint(7*size, 4*size));
-    p.append(QPoint(10*size, 4*size));
-    p.append(QPoint(10*size, 7*size));
-    p.append(QPoint(7*size, 7*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    painter.setBrush(QBrush(getQColor(cube->frontColor)));
-
-    p.clear();
-
-    p.append(QPoint(1*size, 7*size));
-    p.append(QPoint(4*size, 7*size));
-    p.append(QPoint(4*size, 10*size));
-    p.append(QPoint(1*size, 10*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(4*size, 7*size));
-    p.append(QPoint(7*size, 7*size));
-    p.append(QPoint(7*size, 10*size));
-    p.append(QPoint(4*size, 10*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(7*size, 7*size));
-    p.append(QPoint(10*size, 7*size));
-    p.append(QPoint(10*size, 10*size));
-    p.append(QPoint(7*size, 10*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(1*size, 10*size));
-    p.append(QPoint(4*size, 10*size));
-    p.append(QPoint(4*size, 13*size));
-    p.append(QPoint(1*size, 13*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(4*size, 10*size));
-    p.append(QPoint(7*size, 10*size));
-    p.append(QPoint(7*size, 13*size));
-    p.append(QPoint(4*size, 13*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-
-    p.clear();
-
-    p.append(QPoint(7*size, 10*size));
-    p.append(QPoint(10*size, 10*size));
-    p.append(QPoint(10*size, 13*size));
-    p.append(QPoint(7*size, 13*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    // Рисуем верхнюю часть
-
-    painter.setBrush(QBrush(getQColor(cube->upColor)));
-
-    p.clear();
-
-    p.append(QPoint(2*size, 3*size));
-    p.append(QPoint(5*size, 3*size));
-    p.append(QPoint(4*size, 4*size));
-    p.append(QPoint(1*size, 4*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(5*size, 3*size));
-    p.append(QPoint(8*size, 3*size));
-    p.append(QPoint(7*size, 4*size));
-    p.append(QPoint(4*size, 4*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(8*size, 3*size));
-    p.append(QPoint(11*size, 3*size));
-    p.append(QPoint(10*size, 4*size));
-    p.append(QPoint(7*size, 4*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(3*size, 2*size));
-    p.append(QPoint(6*size, 2*size));
-    p.append(QPoint(5*size, 3*size));
-    p.append(QPoint(2*size, 3*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(6*size, 2*size));
-    p.append(QPoint(9*size, 2*size));
-    p.append(QPoint(8*size, 3*size));
-    p.append(QPoint(5*size, 3*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(9*size, 2*size));
-    p.append(QPoint(12*size, 2*size));
-    p.append(QPoint(11*size, 3*size));
-    p.append(QPoint(8*size, 3*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(4*size, 1*size));
-    p.append(QPoint(7*size, 1*size));
-    p.append(QPoint(6*size, 2*size));
-    p.append(QPoint(3*size, 2*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(7*size, 1*size));
-    p.append(QPoint(10*size, 1*size));
-    p.append(QPoint(9*size, 2*size));
-    p.append(QPoint(6*size, 2*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(10*size, 1*size));
-    p.append(QPoint(13*size, 1*size));
-    p.append(QPoint(12*size, 2*size));
-    p.append(QPoint(9*size, 2*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    // Рисуем правую часть
-
-    painter.setBrush(QBrush(getQColor(cube->mainColors[3])));
-
-    p.clear();
-
-    p.append(QPoint(10*size, 4*size));
-    p.append(QPoint(11*size, 3*size));
-    p.append(QPoint(11*size, 6*size));
-    p.append(QPoint(10*size, 7*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    painter.setBrush(QBrush(getQColor(cube->mainColors[4])));
-
-    p.clear();
-
-    p.append(QPoint(11*size, 3*size));
-    p.append(QPoint(12*size, 2*size));
-    p.append(QPoint(12*size, 5*size));
-    p.append(QPoint(11*size, 6*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    painter.setBrush(QBrush(getQColor(cube->mainColors[5])));
-
-    p.clear();
-
-    p.append(QPoint(12*size, 2*size));
-    p.append(QPoint(13*size, 1*size));
-    p.append(QPoint(13*size, 4*size));
-    p.append(QPoint(12*size, 5*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    painter.setBrush(QBrush(getQColor(cube->rightColor)));
-
-    p.clear();
-
-    p.append(QPoint(10*size, 7*size));
-    p.append(QPoint(11*size, 6*size));
-    p.append(QPoint(11*size, 9*size));
-    p.append(QPoint(10*size, 10*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(11*size, 6*size));
-    p.append(QPoint(12*size, 5*size));
-    p.append(QPoint(12*size, 8*size));
-    p.append(QPoint(11*size, 9*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(12*size, 5*size));
-    p.append(QPoint(13*size, 4*size));
-    p.append(QPoint(13*size, 7*size));
-    p.append(QPoint(12*size, 8*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(10*size, 10*size));
-    p.append(QPoint(11*size, 9*size));
-    p.append(QPoint(11*size, 12*size));
-    p.append(QPoint(10*size, 13*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(11*size, 9*size));
-    p.append(QPoint(12*size, 8*size));
-    p.append(QPoint(12*size, 11*size));
-    p.append(QPoint(11*size, 12*size));
-
-    painter.drawPolygon(QPolygon(p));
-
-    p.clear();
-
-    p.append(QPoint(12*size, 8*size));
-    p.append(QPoint(13*size, 7*size));
-    p.append(QPoint(13*size, 10*size));
-    p.append(QPoint(12*size, 11*size));
-
-    painter.drawPolygon(QPolygon(p));
+    painter.setPen(QPen(borderColor, borderWidth));
+    painter.setBrush(QBrush(hideColor));
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    painter.fillRect(0, 0, this->width(), this->height(), Qt::white);
+    float size = (float) this->width() / 6;
+
+    //front
+    if (!isHiding) painter.setBrush(QBrush(getQColor(cube->frontColor)));
+    for (int i = 0; i < 9; i++) {
+        CubeColor color = cube->frontColor;
+        if (i < 3) color = cube->mainColors[i];
+        if (!isHiding) painter.setBrush(QBrush(getQColor(color)));
+        painter.drawRect(size + (i % 3) * size, (2 + i/3) * size, size, size);
+    }
+
+    //right
+    for (int i = 0; i < 9; i++) {
+        QVector<QPoint> points;
+        CubeColor color = cube->rightColor;
+        if (i < 3) color = cube->mainColors[i+3];
+        if (!isHiding) painter.setBrush(QBrush(getQColor(color)));
+        int x = 4 * size + (i % 3) * size / 3;
+        int y = 2 * size + (i / 3) * size - (i % 3) * size / 3;
+        points.append(QPoint(x, y));
+        points.append(QPoint(x + size / 3, y - size / 3));
+        points.append(QPoint(x + size / 3, y + size - size / 3));
+        points.append(QPoint(x, y + size));
+        painter.drawPolygon(QPolygon(points));
+    }
+
+    //top
+    if (!isHiding) painter.setBrush(QBrush(getQColor(cube->upColor)));
+    for (int i = 0; i < 9; i++) {
+        QVector<QPoint> points;
+        int x = size + (3 - i / 3) * size / 3 + (i % 3) * size;
+        int y = size + (i / 3) * size / 3;
+        points.append(QPoint(x, y));
+        points.append(QPoint(x + size, y));
+        points.append(QPoint(x + size - size / 3, y + size / 3));
+        points.append(QPoint(x - size / 3, y + size / 3));
+        painter.drawPolygon(QPolygon(points));
+    }
+
+    painter.end();
 }
