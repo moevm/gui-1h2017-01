@@ -19,6 +19,8 @@ public:
     void startSession();
     bool checkUserChoice(PLLCase userChoice);
     QString getTimerValueString();
+    void finishSession();
+
 
 
 private:

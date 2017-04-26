@@ -21,10 +21,7 @@ bool CubeManager::checkUserChoice(PLLCase userChoice) {
     currentPLLCase = cube->scrabmle();
     if (isCorrect) currentSuccessfulAttempts++;
     currentAttempts++;
-    if (currentAttempts == Settings::Instance().attempts) {
-        isSession = false;
-        finishTime = QTime::currentTime();
-    }
+    if (currentAttempts == Settings::Instance().attempts) finishSession();
     return isCorrect;
 }
 
@@ -37,5 +34,11 @@ QString CubeManager::getTimerValueString() {
     QString timeString = time.toString("mm:ss.zzz");
     timeString.chop(1);
     return timeString;
+}
+
+void CubeManager::finishSession() {
+    isSession = false;
+    finishTime = QTime::currentTime();
+    qDebug() << "finish set";
 }
 

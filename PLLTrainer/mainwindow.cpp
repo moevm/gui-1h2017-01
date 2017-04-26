@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->cubeManager = new CubeManager(ui->cubeWidget->cube);
+    ui->stopButton->setDisabled(true);
     ui->buttons->cubeManager = this->cubeManager;
     ui->buttons->mw = this;
     timer = new QTimer(this);
@@ -29,8 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton, SIGNAL(clicked()), settingsform , SLOT(show()));
     timer->start(UPDATE_TIME);
 
-
-
+    ui->startButton->setFocusPolicy(Qt::NoFocus);
+    ui->stopButton->setFocusPolicy(Qt::NoFocus);
+    ui->pushButton->setFocusPolicy(Qt::NoFocus);
 }
 
 void MainWindow::setResults(bool result, PLLCase lastPLLCase)
@@ -64,6 +66,7 @@ void MainWindow::on_startButton_clicked()
     cubeManager->startSession();
     ui->resultLabel->clear();
     ui->totalResultLabel->clear();
+    ui->stopButton->setEnabled(true);
     update();
 }
 
@@ -74,6 +77,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     PLLCase lastPLLCase = cubeManager->currentPLLCase;
     bool isCorrect = false;
     switch (event->key()) {
+
+    case Qt::Key_Space:
+        on_stopButton_clicked();
+        break;
 
     //one-letter cases
     case Qt::Key_E:
@@ -206,3 +213,11 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
+
+void MainWindow::on_stopButton_clicked()
+{
+    cubeManager->finishSession();
+    int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / cubeManager->currentAttempts;
+    ui->totalResultLabel->setText("Your result: " + QString::number(rate) + "%");
+    ui->stopButton->setDisabled(true);
+}
