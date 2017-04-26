@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <cubecolors.h>
-
+#include <settings.h>
 SettingsForm::SettingsForm(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SettingsForm)
@@ -24,14 +24,7 @@ int SettingsForm::get_attempts()
 
 int SettingsForm::get_color()
 {
-    switch (ui->color->currentIndex()) {
-        case 0: return 0;
-        case 1: return 1;
-        case 2: return 2;
-        case 3: return 3;
-        case 4: return 4;
-        case 5: return 5;
-    }
+    return ui->color->currentIndex();
 }
 
 bool SettingsForm::isRandomMode()
@@ -51,28 +44,7 @@ void SettingsForm::set_attempts(int count)
 
 void SettingsForm::set_color(CubeColor text)
 {
-    switch(text){
-    std::cout<< text;
-    case GREEN:
-        ui->color->setCurrentIndex(4);
-        break;
-    case RED:
-        ui->color->setCurrentIndex(2);
-        break;
-    case BLUE:
-        ui->color->setCurrentIndex(5);
-        break;
-    case WHITE:
-        ui->color->setCurrentIndex(1);
-        break;
-    case YELLOW:
-        ui->color->setCurrentIndex(0);
-        break;
-    case ORANGE:
-        ui->color->setCurrentIndex(3);
-        break;
-    }
-
+    ui->color->setCurrentIndex((int) text);
 }
 
 void SettingsForm::setRandomMode(bool value)
@@ -85,6 +57,32 @@ void SettingsForm::setHardMode(bool value)
     ui->easyMode->setChecked(value);
 }
 
+void SettingsForm::updateUI()
+{
+    QFile fileOut("/Users/arturazarov/Krinkin/PLLTrainer/settings.txt");
+    fileOut.open(QIODevice::ReadWrite);
+    QString str = fileOut.readLine();
+    QStringList values ;
+    values = str.split(" ");
+    QTextStream out(stdout);
+    foreach(QString x, values)
+        out << x << endl;
+    fileOut.close();
+
+    int countAttempts = values[1].toInt();
+    int intColor = values[0].toInt();
+    int intRandomMode = values[3].toInt();
+    bool randomMode = bool(intRandomMode);
+    int intHardMode = values[2].toInt();
+    bool hardMode = bool(intHardMode);
+    CubeColor color = (CubeColor) intColor;
+
+    set_attempts(countAttempts);
+    set_color(color);
+    setRandomMode(randomMode);
+    setHardMode(hardMode);
+}
+
 //void SettingsForm::on_buttonBox_clicked(QAbstractButton *button)
 //{
 
@@ -92,15 +90,26 @@ void SettingsForm::setHardMode(bool value)
 
 void SettingsForm::on_buttonBox_accepted()
 {
-    QFile fileOut("settings.txt");
+    QFile fileOut("/Users/arturazarov/Krinkin/PLLTrainer/settings.txt");
     fileOut.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
     QTextStream writeStream(&fileOut);
+
     int color = get_color();
     int attempts = get_attempts();
     bool hardMode = isHardMode();
     bool randomMode = isRandomMode();
-    QString stringAttempts = QString::number(attempts);
-    writeStream << QString::number(color) + " " + stringAttempts + " " + QString::number(hardMode) + " " + QString::number(randomMode);
+
+    writeStream << QString::number(color) + " " + QString::number(attempts) + " " + QString::number(hardMode) + " " + QString::number(randomMode);
     fileOut.flush();
     fileOut.close();
+
+    Settings::Instance().attempts = attempts;
+    Settings::Instance().downColor = (CubeColor) color;
+    Settings::Instance().doSetupMove = hardMode;
+    Settings::Instance().isMulticolor = randomMode;
+}
+
+void SettingsForm::on_buttonBox_rejected()
+{
+    updateUI();
 }

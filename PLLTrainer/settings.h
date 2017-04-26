@@ -6,7 +6,7 @@
 class Settings
 {
 public:
-    static const Settings& Instance();
+    static Settings& Instance();
 
     CubeColor downColor;
     bool isMulticolor;

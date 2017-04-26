@@ -7,17 +7,6 @@
 #include <string>
 #include <QTextStream>
 
-CubeColor convertToCubeColor(int string){
-    switch(string){
-        case 0: return YELLOW;
-        case 4: return GREEN;
-        case 5: return BLUE;
-        case 1: return WHITE;
-        case 3: return ORANGE;
-        case 2: return RED;
-    }
-};
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -29,28 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
     timer = new QTimer(this);
     settingsform = new SettingsForm(this);
 
-    QFile fileOut("settings.txt");
-    fileOut.open(QIODevice::ReadWrite);
-    QString str = fileOut.readLine();
-    QStringList values ;
-    values = str.split(" ");
-    QTextStream out(stdout);
-    foreach(QString x, values)
-        out << x << endl;
-    fileOut.close();
+    settingsform->updateUI();
 
-    int countAttempts = values[1].toInt();
-    int intColor = values[0].toInt();
-    int intRandomMode = values[3].toInt();
-    bool randomMode = bool(intRandomMode);
-    int intHardMode = values[2].toInt();
-    bool hardMode = bool(intHardMode);
-    CubeColor color = convertToCubeColor(intColor);
-
-    settingsform->set_attempts(countAttempts);
-    settingsform->set_color(color);
-    settingsform->setRandomMode(randomMode);
-    settingsform->setHardMode(hardMode);
+    Settings::Instance().attempts = settingsform->get_attempts();
+    Settings::Instance().downColor = (CubeColor) settingsform->get_color();
+    Settings::Instance().doSetupMove = settingsform->isHardMode();
+    Settings::Instance().isMulticolor = settingsform->isRandomMode();
 
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
     connect(ui->pushButton, SIGNAL(clicked()), settingsform , SLOT(show()));

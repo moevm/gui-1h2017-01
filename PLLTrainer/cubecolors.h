@@ -2,7 +2,7 @@
 #define CUBECOLORS_H
 
 enum CubeColor{
-    GREEN, RED, BLUE, WHITE, YELLOW, ORANGE
+    WHITE, YELLOW, GREEN, BLUE, RED, ORANGE
 };
 
 #endif // CUBECOLORS_H

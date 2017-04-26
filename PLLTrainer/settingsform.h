@@ -25,10 +25,14 @@ public:
     void setRandomMode(bool value);
     void setHardMode(bool value);
 
+    void updateUI();
+
 
 private slots:
 
     void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
 
 private:
     Ui::SettingsForm *ui;

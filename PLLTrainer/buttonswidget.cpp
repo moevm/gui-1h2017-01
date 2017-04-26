@@ -2,7 +2,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include "cube.h"
-
+#include "math.h"
 #include <QDebug>
 
 ButtonsWidget::ButtonsWidget(QWidget *parent) : QWidget(parent)
@@ -236,9 +236,9 @@ void ButtonsWidget::drawArrow(QPainter &painter, int fromPointX, int fromPointY,
 
             lineVectorX = toPointX - fromPointX;
             lineVectorY = toPointY - fromPointY;
-            lineLength = std::sqrt(lineVectorX * lineVectorX + lineVectorY * lineVectorY);
+            lineLength = sqrt(lineVectorX * lineVectorX + lineVectorY * lineVectorY);
 
-            tPointOnLine = nwidth / (2 * (std::tan(fTheta) / 2) * lineLength);
+            tPointOnLine = nwidth / (2 * (tan(fTheta) / 2) * lineLength);
 
             pointOnLineX = toPointX - tPointOnLine * lineVectorX;
             pointOnLineY = toPointY - tPointOnLine * lineVectorY;

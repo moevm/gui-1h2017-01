@@ -8,7 +8,7 @@ Settings::Settings()
     attempts = 12;
 }
 
-const Settings &Settings::Instance()
+Settings &Settings::Instance()
 {
     static Settings theSingleInstance;
     return theSingleInstance;
