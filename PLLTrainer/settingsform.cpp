@@ -4,12 +4,16 @@
 #include <QFile>
 #include <QTextStream>
 #include <cubecolors.h>
+#include <QLocale>
 #include <settings.h>
 SettingsForm::SettingsForm(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SettingsForm)
 {
     ui->setupUi(this);
+    ui->buttonBox->buttons().at(0)->setText("Сохранить");
+    ui->buttonBox->buttons().at(1)->setText("Отменить");
+    this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::WindowCloseButtonHint);
 }
 
 SettingsForm::~SettingsForm()

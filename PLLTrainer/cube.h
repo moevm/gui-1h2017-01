@@ -13,7 +13,6 @@ class Cube
 public:
     Cube();
 
-    static const int CASECOUNT = 21;
     static const int SIDECOUNT = 6;
     static const int ROTATESCOUNT = 4;
     static const int PIECESPERSIDE = 9;

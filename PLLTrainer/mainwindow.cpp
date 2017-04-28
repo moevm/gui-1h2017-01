@@ -41,17 +41,18 @@ void MainWindow::setResults(bool result, PLLCase lastPLLCase)
     QString attempts = QString::number(cubeManager->currentAttempts);
 
     if (result) {
-        ui->resultLabel->setText("Right! (" + succAttempts + "/" + attempts + ")");
+        ui->resultLabel->setText("Правильно! (" + succAttempts + "/" + attempts + ")");
         ui->resultLabel->setStyleSheet("QLabel { color : green; }");
     }
     else {
-        ui->resultLabel->setText("No, that was " + pllNames[lastPLLCase] + " (" + succAttempts + "/" + attempts + ")");
+        ui->resultLabel->setText("Нет, это " + pllNames[lastPLLCase] + " (" + succAttempts + "/" + attempts + ")");
         ui->resultLabel->setStyleSheet("QLabel { color : red; }");
     }
     if (cubeManager->currentAttempts == Settings::Instance().attempts) {
         int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / Settings::Instance().attempts;
-        ui->totalResultLabel->setText("Your result: " + QString::number(rate) + "%");
-    }
+        ui->totalResultLabel->setText("Результат: " + QString::number(rate) + "%");
+        ui->settingsButton->setEnabled(true);
+    }\
 
     update();
 }
@@ -67,6 +68,7 @@ void MainWindow::on_startButton_clicked()
     ui->resultLabel->clear();
     ui->totalResultLabel->clear();
     ui->stopButton->setEnabled(true);
+    ui->settingsButton->setEnabled(false);
     update();
 }
 
@@ -211,7 +213,14 @@ void MainWindow::updateTimer() {
 void MainWindow::on_stopButton_clicked()
 {
     cubeManager->finishSession();
-    int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / cubeManager->currentAttempts;
-    ui->totalResultLabel->setText("Your result: " + QString::number(rate) + "%");
+    int rate;
+    if(cubeManager->currentAttempts == 0){
+        rate = 0;
+    }
+    else{
+        rate = 100 * (float) cubeManager->currentSuccessfulAttempts / cubeManager->currentAttempts;
+    }
+    ui->totalResultLabel->setText("Результат: " + QString::number(rate) + "%");
     ui->stopButton->setDisabled(true);
+    ui->settingsButton->setEnabled(true);
 }

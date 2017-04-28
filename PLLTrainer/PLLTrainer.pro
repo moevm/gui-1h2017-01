@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     settings.cpp \
     cubemanager.cpp \
     buttonswidget.cpp \
-    settingsform.cpp
+    settingsform.cpp \
+    pllcasedrawer.cpp
 
 HEADERS  += mainwindow.h \
     cubewidget.h \
@@ -43,7 +44,8 @@ HEADERS  += mainwindow.h \
     cubemanager.h \
     buttonswidget.h \
     pllcases.h \
-    settingsform.h
+    settingsform.h \
+    pllcasedrawer.h
 
 FORMS    += mainwindow.ui \
     settingsform.ui

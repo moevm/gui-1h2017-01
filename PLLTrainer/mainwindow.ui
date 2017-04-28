@@ -39,7 +39,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Start</string>
+     <string>Начать</string>
     </property>
    </widget>
    <widget class="QLabel" name="resultLabel">
@@ -134,7 +134,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Settings</string>
+     <string>Настройки</string>
     </property>
    </widget>
    <widget class="QPushButton" name="stopButton">
@@ -152,7 +152,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Stop</string>
+     <string>Закончить</string>
     </property>
    </widget>
   </widget>

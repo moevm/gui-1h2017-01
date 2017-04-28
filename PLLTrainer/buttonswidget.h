@@ -5,10 +5,9 @@
 #include <QList>
 #include <array>
 #include "pllcases.h"
-#include <array>
-
 #include "cubemanager.h"
 #include "mainwindow.h"
+#include "pllcasedrawer.h"
 
 struct ButtonCoordinate{
     int x;
@@ -28,20 +27,21 @@ class ButtonsWidget : public QWidget
 public:
     explicit ButtonsWidget(QWidget *parent = 0);
 
+    static const int ROWS = 3;
+    static const int COLS = 7;
+
     int size, width;
     PLLCase hoveredCase;
 
     CubeManager *cubeManager;
     MainWindow *mw;
 
-    std::array<ButtonCoordinate*, 21> coordinates;
+    std::array<ButtonCoordinate*, CASECOUNT> coordinates;
 
 protected:
     void paintEvent(QPaintEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
-    void drawPLLCase(QPainter &painter, ButtonCoordinate* currButton);
-    void drawArrow(QPainter &painter, int x1, int y1, int x2, int y2, bool arrowOnEnd, bool arrowOnStart);
 
 signals:
 
