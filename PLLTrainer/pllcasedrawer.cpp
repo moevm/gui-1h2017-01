@@ -2,14 +2,21 @@
 
 float PLLCaseDrawer::fTheta = 0.8;
 int PLLCaseDrawer::nwidth = 8;
+int PLLCaseDrawer::centerX = 0;
+int PLLCaseDrawer::centerY = 0;
+int PLLCaseDrawer::rot = 0;
 
-void PLLCaseDrawer::drawPLLCase(QPainter &painter, PLLCase pllcase, int x, int y, int size, int width, bool hovered)
+void PLLCaseDrawer::drawPLLCase(QPainter &painter, PLLCase pllcase, int x, int y, int size, int width, bool hovered, int rotation)
 {
 
     QBrush saveBrush = painter.brush();
     QPen savePen = painter.pen();
 
     nwidth = width * 2;
+
+    centerX = (2 * x + 3) * size / 2;
+    centerY = (2 * y + 3) * size / 2;
+    rot = rotation;
 
     if(hovered){
         painter.setBrush(QBrush(Qt::black));
@@ -142,6 +149,41 @@ void PLLCaseDrawer::drawArrow(QPainter &painter, int fromPointX, int fromPointY,
     float temp, lineVectorX, lineVectorY, pointOnLineX, pointOnLineY, normalVectorX, normalVectorY;
     float leftPointX, leftPointY, rightPointX, rightPointY;
     float lineLength, tPointOnLine, tNormal;
+
+    if(rot == 1){
+        lineVectorX = fromPointX - centerX;
+        lineVectorY = fromPointY - centerY;
+        fromPointX = - lineVectorY + centerX;
+        fromPointY = lineVectorX + centerY;
+
+        lineVectorX = toPointX - centerX;
+        lineVectorY = toPointY - centerY;
+        toPointX = - lineVectorY + centerX;
+        toPointY = lineVectorX + centerY;
+    }
+    else if(rot == 2){
+        lineVectorX = fromPointX - centerX;
+        lineVectorY = fromPointY - centerY;
+        fromPointX = - lineVectorX + centerX;
+        fromPointY = - lineVectorY + centerY;
+
+        lineVectorX = toPointX - centerX;
+        lineVectorY = toPointY - centerY;
+        toPointX = - lineVectorX + centerX;
+        toPointY = - lineVectorY + centerY;
+    }
+    else if(rot == 3){
+        lineVectorX = fromPointX - centerX;
+        lineVectorY = fromPointY - centerY;
+        fromPointX = lineVectorY + centerX;
+        fromPointY = - lineVectorX + centerY;
+
+        lineVectorX = toPointX - centerX;
+        lineVectorY = toPointY - centerY;
+        toPointX = lineVectorY + centerX;
+        toPointY = - lineVectorX + centerY;
+    }
+
 
     QVector<QPoint> p;
     QBrush b = painter.brush();

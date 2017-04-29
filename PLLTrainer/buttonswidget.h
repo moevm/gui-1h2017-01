@@ -8,6 +8,7 @@
 #include "cubemanager.h"
 #include "mainwindow.h"
 #include "pllcasedrawer.h"
+#include "aboutpllform.h"
 
 struct ButtonCoordinate{
     int x;
@@ -35,6 +36,7 @@ public:
 
     CubeManager *cubeManager;
     MainWindow *mw;
+    AboutPLLForm *aboutPLLForm;
 
     std::array<ButtonCoordinate*, CASECOUNT> coordinates;
 

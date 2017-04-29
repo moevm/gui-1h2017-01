@@ -34,7 +34,9 @@ SOURCES += main.cpp\
     cubemanager.cpp \
     buttonswidget.cpp \
     settingsform.cpp \
-    pllcasedrawer.cpp
+    pllcasedrawer.cpp \
+    aboutpllform.cpp \
+    fourrotationswidget.cpp
 
 HEADERS  += mainwindow.h \
     cubewidget.h \
@@ -45,10 +47,13 @@ HEADERS  += mainwindow.h \
     buttonswidget.h \
     pllcases.h \
     settingsform.h \
-    pllcasedrawer.h
+    pllcasedrawer.h \
+    aboutpllform.h \
+    fourrotationswidget.h
 
 FORMS    += mainwindow.ui \
-    settingsform.ui
+    settingsform.ui \
+    aboutpllform.ui
 
 DISTFILES +=
 

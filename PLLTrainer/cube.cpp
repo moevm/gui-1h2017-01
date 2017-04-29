@@ -1,6 +1,7 @@
 #include "cube.h"
 #include <QTime>
 #include <array>
+
 Cube::Cube()
 {
     upColor = WHITE;
@@ -14,7 +15,7 @@ Cube::Cube()
     mainColors[5] = BLUE;
 }
 
-PLLCase Cube::scrabmle()
+PLLCase Cube::scrabmle(PLLCase pllCase, int yafter, int ybefore)
 {
 
     CubeColor downColor;
@@ -27,11 +28,13 @@ PLLCase Cube::scrabmle()
         downColor = Settings::Instance().downColor;
     }
 
-    int yAfter = qrand() % ROTATESCOUNT;
-    int yBefore = qrand() % ROTATESCOUNT;
+    int yAfter = pllCase == BLANK? qrand() % ROTATESCOUNT: yafter;
+    int yBefore = pllCase == BLANK? qrand() % ROTATESCOUNT: ROTATESCOUNT - ybefore - 1;
     int uAfter = Settings::Instance().doSetupMove? qrand() % ROTATESCOUNT: 0;
 
-    PLLCase pllCase = (PLLCase)(qrand() % CASECOUNT);
+    if(pllCase == BLANK) {
+        pllCase = (PLLCase)(qrand() % CASECOUNT);
+    }
 
     std::array<CubeColor, ROTATESCOUNT> sideColors;
 

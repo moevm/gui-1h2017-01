@@ -33,13 +33,12 @@ QColor CubeWidget::getQColor(CubeColor color)
 
 void CubeWidget::paintEvent(QPaintEvent *event)
 {
+    size = this->width() / 14;
+    borderWidth = size / 5;
+
     QPainter painter(this);
     painter.setPen(QPen(borderColor, borderWidth));
     painter.setBrush(QBrush(hideColor));
-    //painter.setRenderHint(QPainter::Antialiasing);
-
-    //painter.fillRect(0, 0, this->width(), this->height(), Qt::white);
-    size = this->width() / 14;
 
     //front
     if (!isHiding) painter.setBrush(QBrush(getQColor(cube->frontColor)));

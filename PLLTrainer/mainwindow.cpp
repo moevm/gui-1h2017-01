@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->buttons->mw = this;
     timer = new QTimer(this);
     settingsform = new SettingsForm(this);
-
     settingsform->updateUI();
 
     Settings::Instance().attempts = settingsform->get_attempts();
@@ -28,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
     connect(ui->settingsButton, SIGNAL(clicked()), settingsform , SLOT(show()));
+
     timer->start(UPDATE_TIME);
 
     ui->startButton->setFocusPolicy(Qt::NoFocus);
@@ -59,6 +59,7 @@ void MainWindow::setResults(bool result, PLLCase lastPLLCase)
 
 MainWindow::~MainWindow()
 {
+    ui->buttons->aboutPLLForm->close();
     delete ui;
 }
 

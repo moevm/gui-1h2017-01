@@ -17,7 +17,7 @@ public:
     static const int ROTATESCOUNT = 4;
     static const int PIECESPERSIDE = 9;
 
-    PLLCase scrabmle();
+    PLLCase scrabmle(PLLCase pllcase = BLANK, int yafter = 0, int ybefore = 0);
     std::array<int, PIECESPERSIDE - 1> getAlgorithm(PLLCase pllCase);
     static const QString getPLLName(PLLCase pllCase);
 
