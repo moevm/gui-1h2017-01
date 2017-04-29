@@ -1,6 +1,7 @@
 #include "buttonswidget.h"
 #include <QPainter>
 #include <QMouseEvent>
+#include <QCursor>
 #include "cube.h"
 #include "math.h"
 #include <QDebug>
@@ -57,6 +58,10 @@ void ButtonsWidget::mouseMoveEvent(QMouseEvent *event)
 
     if(!hoveredSomething){
         hoveredCase = BLANK;
+        setCursor(Qt::ArrowCursor);
+    }
+    else if(!cubeManager->isSession){
+        setCursor(Qt::WhatsThisCursor);
     }
 
     update();

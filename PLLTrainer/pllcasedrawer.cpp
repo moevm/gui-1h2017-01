@@ -9,6 +9,8 @@ void PLLCaseDrawer::drawPLLCase(QPainter &painter, PLLCase pllcase, int x, int y
     QBrush saveBrush = painter.brush();
     QPen savePen = painter.pen();
 
+    nwidth = width * 2;
+
     if(hovered){
         painter.setBrush(QBrush(Qt::black));
         painter.drawRect(x * size, y * size, 3 * size, 3 * size);
