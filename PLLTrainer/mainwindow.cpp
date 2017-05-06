@@ -42,16 +42,17 @@ void MainWindow::setResults(bool result, PLLCase lastPLLCase)
     QString attempts = QString::number(cubeManager->currentAttempts);
 
     if (result) {
-        ui->resultLabel->setText("Правильно! (" + succAttempts + "/" + attempts + ")");
+        ui->resultLabel->setText(Settings::Instance().getStr("yes")+"! (" + succAttempts + "/" + attempts + ")");
         ui->resultLabel->setStyleSheet("QLabel { color : green; }");
     }
     else {
-        ui->resultLabel->setText("Нет, это " + pllNames[lastPLLCase] + " (" + succAttempts + "/" + attempts + ")");
+        ui->resultLabel->setText(Settings::Instance().getStr("no")+ " " +
+                                 pllNames[lastPLLCase] + " (" + succAttempts + "/" + attempts + ")");
         ui->resultLabel->setStyleSheet("QLabel { color : red; }");
     }
     if (cubeManager->currentAttempts == Settings::Instance().attempts) {
         int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / Settings::Instance().attempts;
-        ui->totalResultLabel->setText("Результат: " + QString::number(rate) + "%");
+        ui->totalResultLabel->setText(Settings::Instance().getStr("result")+": " + QString::number(rate) + "%");
         ui->settingsButton->setEnabled(true);
     }\
 
@@ -222,7 +223,7 @@ void MainWindow::on_stopButton_clicked()
     else{
         rate = 100 * (float) cubeManager->currentSuccessfulAttempts / cubeManager->currentAttempts;
     }
-    ui->totalResultLabel->setText("Результат: " + QString::number(rate) + "%");
+    ui->totalResultLabel->setText(Settings::Instance().getStr("result") + ": " + QString::number(rate) + "%");
     ui->stopButton->setDisabled(true);
     ui->settingsButton->setEnabled(true);
 }

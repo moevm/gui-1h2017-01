@@ -2,6 +2,8 @@
 #define ABOUTPLLFORM_H
 
 #include <QWidget>
+#include <QList>
+#include <QString>
 #include "pllcases.h"
 
 namespace Ui {
@@ -17,6 +19,7 @@ public:
     ~AboutPLLForm();
 
     void showPLLCase(PLLCase pllcase);
+    QList<QString> getStrAlgs(PLLCase pllcase);
 
 private:
     Ui::AboutPLLForm *ui;

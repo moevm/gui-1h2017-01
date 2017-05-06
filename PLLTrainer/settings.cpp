@@ -104,4 +104,12 @@ void Settings::initMultilang()
     add("cancel", Russian, "Отменить");
     add("cancel", English, "Cancel");
     add("cancel", German, "Stornieren");
+
+    add("algs", Russian, "Алгоритмы");
+    add("algs", English, "Algorithms");
+    add("algs", German, "Algorithmen");
+
+    add("for", Russian, "Для");
+    add("for", English, "For");
+    add("for", German, "Für");
 }
