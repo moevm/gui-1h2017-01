@@ -15,7 +15,7 @@ Cube::Cube()
     mainColors[5] = RED;
 }
 
-PLLCase Cube::scrabmle(PLLCase pllCase, int yafter, int ybefore)
+PLLCase Cube::scrabmle(PLLCase pllCase, int yafter, int ybefore, int uafter)
 {
     CubeColor downColor;
 
@@ -28,7 +28,7 @@ PLLCase Cube::scrabmle(PLLCase pllCase, int yafter, int ybefore)
 
     int yAfter = pllCase == BLANK? qrand() % ROTATESCOUNT: yafter;
     int yBefore = pllCase == BLANK? qrand() % ROTATESCOUNT: ROTATESCOUNT - ybefore - 1;
-    int uAfter = Settings::Instance().doSetupMove? qrand() % ROTATESCOUNT: 0;
+    int uAfter = Settings::Instance().doSetupMove? pllCase == BLANK? qrand() % ROTATESCOUNT: uafter: 0;
 
     if(pllCase == BLANK) {
         pllCase = (PLLCase)(qrand() % CASECOUNT);
