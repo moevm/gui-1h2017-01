@@ -12,7 +12,9 @@ Settings::Settings()
     initialized = false;
 }
 
+void Settings::add(QString key, Language lang, QString languagedStr)
 {
+    strs.insert(QPair<QString, Language>(key, lang), languagedStr);
 }
 
 Settings &Settings::Instance()
@@ -22,7 +24,9 @@ Settings &Settings::Instance()
     return theSingleInstance;
 }
 
+QString Settings::getStr(QString key)
 {
+    return strs.value(QPair<QString, Language>(key, language), "???");
 }
 
 void Settings::initMultilang()
