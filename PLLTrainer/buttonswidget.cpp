@@ -19,7 +19,7 @@ ButtonsWidget::ButtonsWidget(QWidget *parent) : QWidget(parent)
     }
 }
 
-void ButtonsWidget::paintEvent(QPaintEvent *event)
+void ButtonsWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.setPen(QPen(Qt::black, 2));
@@ -67,7 +67,7 @@ void ButtonsWidget::mouseMoveEvent(QMouseEvent *event)
     update();
 }
 
-void ButtonsWidget::mousePressEvent(QMouseEvent *event)
+void ButtonsWidget::mousePressEvent(QMouseEvent *)
 {
     if(hoveredCase != BLANK && !cubeManager->isSession){
         aboutPLLForm->showPLLCase(hoveredCase);

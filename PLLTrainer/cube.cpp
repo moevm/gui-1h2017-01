@@ -5,14 +5,14 @@
 Cube::Cube()
 {
     upColor = WHITE;
-    rightColor = BLUE;
-    frontColor = RED;
-    mainColors[0] = RED;
-    mainColors[1] = RED;
-    mainColors[2] = RED;
-    mainColors[3] = BLUE;
-    mainColors[4] = BLUE;
-    mainColors[5] = BLUE;
+    rightColor = RED;
+    frontColor = GREEN;
+    mainColors[0] = GREEN;
+    mainColors[1] = GREEN;
+    mainColors[2] = GREEN;
+    mainColors[3] = RED;
+    mainColors[4] = RED;
+    mainColors[5] = RED;
 }
 
 PLLCase Cube::scrabmle(PLLCase pllCase, int yafter, int ybefore)

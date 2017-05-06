@@ -31,7 +31,7 @@ QColor CubeWidget::getQColor(CubeColor color)
     }
 }
 
-void CubeWidget::paintEvent(QPaintEvent *event)
+void CubeWidget::paintEvent(QPaintEvent *)
 {
     size = this->width() / 14;
     borderWidth = size / 5;
