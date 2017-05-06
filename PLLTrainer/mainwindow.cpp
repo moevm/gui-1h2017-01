@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    qsrand(QTime::currentTime().msec());
     this->cubeManager = new CubeManager(ui->cubeWidget->cube);
     ui->stopButton->setDisabled(true);
     ui->buttons->cubeManager = this->cubeManager;

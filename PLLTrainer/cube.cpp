@@ -17,9 +17,7 @@ Cube::Cube()
 
 PLLCase Cube::scrabmle(PLLCase pllCase, int yafter, int ybefore)
 {
-
     CubeColor downColor;
-    qsrand(QTime::currentTime().msec());
 
     if(Settings::Instance().isMulticolor){
         downColor = (CubeColor)(qrand() % SIDECOUNT);
