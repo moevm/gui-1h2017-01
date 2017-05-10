@@ -31,8 +31,11 @@ public:
 private slots:
     void on_startButton_clicked();
     void updateTimer();
+    void updateLanguage();
 
     void on_stopButton_clicked();
+
+    void on_pauseButton_clicked();
 
 private:
     Ui::MainWindow *ui;

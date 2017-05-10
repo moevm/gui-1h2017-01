@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qsrand(QTime::currentTime().msec());
     this->cubeManager = new CubeManager(ui->cubeWidget->cube);
     ui->stopButton->setDisabled(true);
+    ui->pauseButton->setDisabled(true);
     ui->buttons->cubeManager = this->cubeManager;
     ui->buttons->mw = this;
     timer = new QTimer(this);
@@ -34,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->startButton->setFocusPolicy(Qt::NoFocus);
     ui->stopButton->setFocusPolicy(Qt::NoFocus);
     ui->settingsButton->setFocusPolicy(Qt::NoFocus);
+    ui->pauseButton->setFocusPolicy(Qt::NoFocus);
+
+
 }
 
 void MainWindow::setResults(bool result, PLLCase lastPLLCase)
@@ -54,7 +58,8 @@ void MainWindow::setResults(bool result, PLLCase lastPLLCase)
         int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / Settings::Instance().attempts;
         ui->totalResultLabel->setText(Settings::Instance().getStr("result")+": " + QString::number(rate) + "%");
         ui->settingsButton->setEnabled(true);
-    }\
+        ui->pauseButton->setDisabled(true);
+    }
 
     update();
 }
@@ -72,12 +77,25 @@ void MainWindow::on_startButton_clicked()
     ui->totalResultLabel->clear();
     ui->stopButton->setEnabled(true);
     ui->settingsButton->setEnabled(false);
+    ui->pauseButton->setEnabled(true);
+    ui->cubeWidget->isHiding = false;
+    ui->cubeWidget->update();
+    ui->pauseButton->setText(Settings::Instance().getStr("pause"));
     update();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
 
-    if (!cubeManager->isSession) return;
+    if (!cubeManager->isSession) {
+        switch (event->key()) {
+        case Qt::Key_Space:
+            on_startButton_clicked();
+            break;
+        default:
+            break;
+        }
+        return;
+    }
 
     PLLCase lastPLLCase = cubeManager->currentPLLCase;
     bool isCorrect = false;
@@ -86,6 +104,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Space:
         on_stopButton_clicked();
         break;
+
+    case Qt::Key_Shift:
+        on_pauseButton_clicked();
+        return;
 
     //one-letter cases
     case Qt::Key_E:
@@ -209,6 +231,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 
 
 void MainWindow::updateTimer() {
+    cubeManager->updateTimer();
     ui->timerLabel->setText(cubeManager->getTimerValueString());
 }
 
@@ -224,6 +247,35 @@ void MainWindow::on_stopButton_clicked()
         rate = 100 * (float) cubeManager->currentSuccessfulAttempts / cubeManager->currentAttempts;
     }
     ui->totalResultLabel->setText(Settings::Instance().getStr("result") + ": " + QString::number(rate) + "%");
+    ui->pauseButton->setText(Settings::Instance().getStr("pause"));
     ui->stopButton->setDisabled(true);
+    ui->pauseButton->setDisabled(true);
     ui->settingsButton->setEnabled(true);
+    ui->cubeWidget->isHiding = false;
+    ui->cubeWidget->update();
+}
+
+void MainWindow::updateLanguage() {
+    ui->startButton->setText(Settings::Instance().getStr("start"));
+    ui->stopButton->setText(Settings::Instance().getStr("stop"));
+    ui->settingsButton->setText(Settings::Instance().getStr("sets"));
+    ui->pauseButton->setText(Settings::Instance().getStr("pause"));
+}
+
+void MainWindow::on_pauseButton_clicked()
+{
+    if (!cubeManager->isSession) return;
+
+    if (cubeManager->isPaused) {
+        cubeManager->continueSession();
+        ui->pauseButton->setText(Settings::Instance().getStr("pause"));
+        ui->cubeWidget->isHiding = false;
+        ui->cubeWidget->update();
+    }
+    else {
+        cubeManager->pauseSession();
+        ui->pauseButton->setText(Settings::Instance().getStr("continue"));
+        ui->cubeWidget->isHiding = true;
+        ui->cubeWidget->update();
+    }
 }

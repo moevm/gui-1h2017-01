@@ -9,14 +9,17 @@ class CubeManager
 public:
 
     bool isSession;
+    bool isPaused;
     int currentAttempts;
     int currentSuccessfulAttempts;
     PLLCase currentPLLCase;
-    QTime startTime;
-    QTime finishTime;
+    QTime spentTime, lastTime;
 
     CubeManager(Cube* cube);
     void startSession();
+    void pauseSession();
+    void continueSession();
+    void updateTimer();
     bool checkUserChoice(PLLCase userChoice);
     QString getTimerValueString();
     void finishSession();

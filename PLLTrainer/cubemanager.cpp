@@ -5,6 +5,9 @@ CubeManager::CubeManager(Cube* cube)
 {
     this->cube = cube;
     isSession = false;
+    isPaused = false;
+    spentTime = QTime(0, 0, 0, 0);
+    lastTime = QTime::currentTime();
 }
 
 void CubeManager::startSession() {
@@ -12,7 +15,9 @@ void CubeManager::startSession() {
     isSession = true;
     currentAttempts = 0;
     currentSuccessfulAttempts = 0;
-    startTime = QTime::currentTime();
+    spentTime = QTime(0, 0, 0, 0);
+    lastTime = QTime::currentTime();
+    isPaused = false;
 }
 
 bool CubeManager::checkUserChoice(PLLCase userChoice) {
@@ -26,18 +31,30 @@ bool CubeManager::checkUserChoice(PLLCase userChoice) {
 }
 
 QString CubeManager::getTimerValueString() {
-    int ms;
-    if (isSession) ms = startTime.msecsTo(QTime::currentTime());
-    else ms = startTime.msecsTo(finishTime);
-    QTime time(0, 0, 0, 0);
-    time = time.addMSecs(ms);
-    QString timeString = time.toString("mm:ss.zzz");
+    QString timeString = spentTime.toString("mm:ss.zzz");
     timeString.chop(1);
     return timeString;
 }
 
 void CubeManager::finishSession() {
     isSession = false;
-    finishTime = QTime::currentTime();
+    isPaused = false;
 }
 
+void CubeManager::updateTimer() {
+
+    if (isSession && !isPaused) {
+        int ms = lastTime.msecsTo(QTime::currentTime());
+        spentTime = spentTime.addMSecs(ms);
+    }
+
+    lastTime = QTime::currentTime();
+}
+
+void CubeManager::pauseSession() {
+    isPaused = true;
+}
+
+void CubeManager::continueSession() {
+    isPaused = false;
+}

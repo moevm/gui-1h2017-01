@@ -45,6 +45,14 @@ void Settings::initMultilang()
     add("sets", English, "Settings");
     add("sets", German, "Einstellungen");
 
+    add("pause", Russian, "Пауза");
+    add("pause", English, "Pause");
+    add("pause", German, "Pause");
+
+    add("continue", Russian, "Продолжить");
+    add("continue", English, "Continue");
+    add("continue", German, "Vorgehen");
+
     add("result", Russian, "Результат");
     add("result", English, "Result");
     add("result", German, "Ergebnis");
