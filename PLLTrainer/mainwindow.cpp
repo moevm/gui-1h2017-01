@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(settingsform, SIGNAL(windowTitleChanged(QString)), this, SLOT(updateLanguage()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
     connect(ui->settingsButton, SIGNAL(clicked()), settingsform , SLOT(show()));
+
     updateLanguage();
     timer->start(UPDATE_TIME);
 

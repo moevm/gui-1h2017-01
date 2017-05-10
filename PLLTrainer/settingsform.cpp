@@ -120,12 +120,14 @@ void SettingsForm::updateUI()
         QFile file(settingsFile);
         if (file.open(QIODevice::ReadWrite)) {
             QTextStream stream(&file);
-            stream << "0 20 0 0";
+            stream << "0 20 0 0 0";
 
             set_attempts(20);
             set_color(WHITE);
             setRandomMode(0);
             setHardMode(0);
+            setLanguage(0);
+
         }
         file.close();
     }
@@ -192,8 +194,6 @@ void SettingsForm::on_buttonBox_accepted()
     Settings::Instance().language = (Language) language;
 
     updateUI();
-
-
 }
 
 void SettingsForm::on_buttonBox_rejected()
