@@ -72,7 +72,7 @@ void ButtonsWidget::mousePressEvent(QMouseEvent *)
     if(hoveredCase != BLANK && !cubeManager->isSession){
         aboutPLLForm->showPLLCase(hoveredCase);
     }
-    if(hoveredCase == BLANK || !cubeManager->isSession) return;
+    if(hoveredCase == BLANK || !cubeManager->isSession || cubeManager->isPaused) return;
 
     PLLCase actualPLLCase = cubeManager->currentPLLCase;
     bool res = cubeManager->checkUserChoice(hoveredCase);
