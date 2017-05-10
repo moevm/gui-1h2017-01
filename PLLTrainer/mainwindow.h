@@ -31,7 +31,7 @@ public:
 private slots:
     void on_startButton_clicked();
     void updateTimer();
-
+    void updateUI();
     void on_stopButton_clicked();
 
 private:

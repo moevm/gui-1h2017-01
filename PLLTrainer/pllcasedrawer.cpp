@@ -1,5 +1,5 @@
 #include "pllcasedrawer.h"
-
+#include <math.h>
 float PLLCaseDrawer::fTheta = 0.8;
 int PLLCaseDrawer::nwidth = 8;
 int PLLCaseDrawer::centerX = 0;

@@ -19,16 +19,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->buttons->mw = this;
     timer = new QTimer(this);
     settingsform = new SettingsForm(this);
-    settingsform->updateUI();
 
+    settingsform->updateUI();
     Settings::Instance().attempts = settingsform->get_attempts();
     Settings::Instance().downColor = (CubeColor) settingsform->get_color();
     Settings::Instance().doSetupMove = settingsform->isHardMode();
     Settings::Instance().isMulticolor = settingsform->isRandomMode();
+    Settings::Instance().language = (Language) settingsform->getLanguage();
 
+    connect(settingsform, SIGNAL(windowTitleChanged(QString)), this, SLOT(updateUI()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
     connect(ui->settingsButton, SIGNAL(clicked()), settingsform , SLOT(show()));
-
+    updateUI();
     timer->start(UPDATE_TIME);
 
     ui->startButton->setFocusPolicy(Qt::NoFocus);
@@ -210,6 +212,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 
 void MainWindow::updateTimer() {
     ui->timerLabel->setText(cubeManager->getTimerValueString());
+}
+
+void MainWindow::updateUI()
+{
+    ui->stopButton->setText(Settings::Instance().getStr("stop"));
+    ui->startButton->setText(Settings::Instance().getStr("start"));
+    ui->settingsButton->setText(Settings::Instance().getStr("sets"));
 }
 
 

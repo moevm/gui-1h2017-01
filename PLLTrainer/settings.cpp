@@ -69,6 +69,22 @@ void Settings::initMultilang()
     add("multicolor mode", English, "Random color of the bottom side mode");
     add("multicolor mode", German, "Zufällige Farbe des unteren Seitenmodus");
 
+    add("lang", Russian, "Язык приложения");
+    add("lang", English, "Application language");
+    add("lang", German, "Anwendungssprache");
+
+    add("lang_ru", Russian, "Русский");
+    add("lang_ru", English, "Russian");
+    add("lang_ru", German, "Russisch");
+
+    add("lang_en", Russian, "Английский");
+    add("lang_en", English, "English");
+    add("lang_en", German, "Englisch");
+
+    add("lang_de", Russian, "Немецкий");
+    add("lang_de", English, "German");
+    add("lang_de", German, "Deutsch");
+
     add("hard mode", Russian, "Режим усложнённых случаев");
     add("hard mode", English, "Mode with hard cases");
     add("hard mode", German, "Modus mit harten Fällen");
