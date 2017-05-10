@@ -28,10 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
     Settings::Instance().isMulticolor = settingsform->isRandomMode();
     Settings::Instance().language = (Language) settingsform->getLanguage();
 
-    connect(settingsform, SIGNAL(windowTitleChanged(QString)), this, SLOT(updateUI()));
+    connect(settingsform, SIGNAL(windowTitleChanged(QString)), this, SLOT(updateLanguage()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
     connect(ui->settingsButton, SIGNAL(clicked()), settingsform , SLOT(show()));
-    updateUI();
+    updateLanguage();
     timer->start(UPDATE_TIME);
 
     ui->startButton->setFocusPolicy(Qt::NoFocus);
@@ -240,14 +240,6 @@ void MainWindow::updateTimer() {
     cubeManager->updateTimer();
     ui->timerLabel->setText(cubeManager->getTimerValueString());
 }
-
-void MainWindow::updateUI()
-{
-    ui->stopButton->setText(Settings::Instance().getStr("stop"));
-    ui->startButton->setText(Settings::Instance().getStr("start"));
-    ui->settingsButton->setText(Settings::Instance().getStr("sets"));
-}
-
 
 void MainWindow::on_stopButton_clicked()
 {

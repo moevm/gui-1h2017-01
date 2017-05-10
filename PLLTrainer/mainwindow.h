@@ -31,12 +31,7 @@ public:
 private slots:
     void on_startButton_clicked();
     void updateTimer();
-<<<<<<< HEAD
-    void updateUI();
-=======
     void updateLanguage();
-
->>>>>>> origin/master
     void on_stopButton_clicked();
 
     void on_pauseButton_clicked();
