@@ -108,7 +108,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Shift:
         on_pauseButton_clicked();
         return;
+    }
 
+    if (cubeManager->isPaused) return;
+
+    switch (event->key()) {
     //one-letter cases
     case Qt::Key_E:
         isCorrect = cubeManager->checkUserChoice(E);
