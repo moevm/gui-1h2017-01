@@ -15,6 +15,8 @@ AboutPLLForm::~AboutPLLForm()
 
 void AboutPLLForm::showPLLCase(PLLCase pllcase)
 {
+    this->pllcase = pllcase;
+
     int ybefore = qrand();
     int uafter = qrand() % 4;
 
@@ -27,17 +29,7 @@ void AboutPLLForm::showPLLCase(PLLCase pllcase)
 
     this->setWindowTitle(Cube::getPLLName(pllcase));
 
-    QList<QString> strAlgs = getStrAlgs(pllcase);
-
-    QString algs = Settings::Instance().getStr("algs");
-    QString forStr = Settings::Instance().getStr("for");
-
-    algs += "\n\n" + forStr + " 0°:\n" + strAlgs.at(0);
-    algs += "\n\n" + forStr + " 90°:\n" + strAlgs.at(1);
-    algs += "\n\n" + forStr + " 180°:\n" + strAlgs.at(2);
-    algs += "\n\n" + forStr + " 270°:\n" + strAlgs.at(3);
-
-    ui->text->setPlainText(algs);
+    setText();
 
     show();
     activateWindow();
@@ -176,8 +168,28 @@ QList<QString> AboutPLLForm::getStrAlgs(PLLCase pllcase)
         res.append("R' d' F R2 u R' U R U' R u' R2");
         break;
     default:
+        res.append("No algorithm");
+        res.append("No algorithm");
+        res.append("No algorithm");
+        res.append("No algorithm");
         break;
     }
 
     return res;
+}
+
+void AboutPLLForm::setText()
+{
+    QList<QString> strAlgs = getStrAlgs(pllcase);
+
+    QString algs = Settings::Instance().getStr("algs");
+    QString forStr = Settings::Instance().getStr("for");
+
+    algs += "\n\n" + forStr + " 0°:\n" + strAlgs.at(0);
+    algs += "\n\n" + forStr + " 90°:\n" + strAlgs.at(1);
+    algs += "\n\n" + forStr + " 180°:\n" + strAlgs.at(2);
+    algs += "\n\n" + forStr + " 270°:\n" + strAlgs.at(3);
+
+    ui->text->setPlainText(algs);
+
 }

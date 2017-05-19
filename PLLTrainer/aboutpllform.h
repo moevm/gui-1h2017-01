@@ -20,6 +20,8 @@ public:
 
     void showPLLCase(PLLCase pllcase);
     QList<QString> getStrAlgs(PLLCase pllcase);
+    PLLCase pllcase;
+    void setText();
 
 private:
     Ui::AboutPLLForm *ui;

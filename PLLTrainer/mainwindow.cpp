@@ -266,6 +266,8 @@ void MainWindow::updateLanguage() {
     ui->stopButton->setText(Settings::Instance().getStr("stop"));
     ui->settingsButton->setText(Settings::Instance().getStr("sets"));
     ui->pauseButton->setText(Settings::Instance().getStr("pause"));
+
+    ui->buttons->aboutPLLForm->setText();
 }
 
 void MainWindow::on_pauseButton_clicked()
