@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stopButton->setFocusPolicy(Qt::NoFocus);
     ui->settingsButton->setFocusPolicy(Qt::NoFocus);
     ui->pauseButton->setFocusPolicy(Qt::NoFocus);
+    ui->statButton->setFocusPolicy(Qt::NoFocus);
 
 
 }
@@ -51,12 +52,17 @@ void MainWindow::setResults(bool result, PLLCase lastPLLCase)
     if (result) {
         ui->resultLabel->setText(Settings::Instance().getStr("yes")+"! (" + succAttempts + "/" + attempts + ")");
         ui->resultLabel->setStyleSheet("QLabel { color : green; }");
+
+        Settings::Instance().stat.addStats(lastPLLCase, true);
     }
     else {
         ui->resultLabel->setText(Settings::Instance().getStr("no")+ " " +
                                  pllNames[lastPLLCase] + " (" + succAttempts + "/" + attempts + ")");
         ui->resultLabel->setStyleSheet("QLabel { color : red; }");
+
+        Settings::Instance().stat.addStats(lastPLLCase, false);
     }
+
     if (cubeManager->currentAttempts == Settings::Instance().attempts) {
         int rate = 100 * (float) cubeManager->currentSuccessfulAttempts / Settings::Instance().attempts;
         ui->totalResultLabel->setText(Settings::Instance().getStr("result")+": " + QString::number(rate) + "%");
@@ -267,6 +273,16 @@ void MainWindow::updateLanguage() {
     ui->settingsButton->setText(Settings::Instance().getStr("sets"));
     ui->pauseButton->setText(Settings::Instance().getStr("pause"));
 
+    if(ui->buttons->showStat){
+        ui->statButton->setText(Settings::Instance().getStr("hide stat"));
+    }
+    else{
+        ui->statButton->setText(Settings::Instance().getStr("show stat"));
+    }
+
+    ui->totalResultLabel->setText("");
+    ui->resultLabel->setText("");
+
     ui->buttons->aboutPLLForm->setText();
 }
 
@@ -286,4 +302,18 @@ void MainWindow::on_pauseButton_clicked()
         ui->cubeWidget->isHiding = true;
         ui->cubeWidget->update();
     }
+}
+
+void MainWindow::on_statButton_clicked()
+{
+    ui->buttons->showStat = !ui->buttons->showStat;
+
+    if(ui->buttons->showStat){
+        ui->statButton->setText(Settings::Instance().getStr("hide stat"));
+    }
+    else{
+        ui->statButton->setText(Settings::Instance().getStr("show stat"));
+    }
+
+    update();
 }

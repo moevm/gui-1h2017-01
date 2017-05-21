@@ -32,6 +32,7 @@ public:
     static const int COLS = 7;
 
     int size, width;
+    bool showStat;
     PLLCase hoveredCase;
 
     CubeManager *cubeManager;

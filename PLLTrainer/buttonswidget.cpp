@@ -11,6 +11,7 @@ ButtonsWidget::ButtonsWidget(QWidget *parent) : QWidget(parent)
     size = 20;
     width = 4;
     hoveredCase = BLANK;
+    showStat = false;
 
     aboutPLLForm = new AboutPLLForm();
 
@@ -22,6 +23,7 @@ ButtonsWidget::ButtonsWidget(QWidget *parent) : QWidget(parent)
 void ButtonsWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
+    QPair<int, int> currStat;
     painter.setPen(QPen(Qt::black, 2));
     painter.setRenderHint(QPainter::Antialiasing);
 
@@ -29,15 +31,28 @@ void ButtonsWidget::paintEvent(QPaintEvent *)
 
     for(ButtonCoordinate* currButton: coordinates){
 
+        currStat = Settings::Instance().stat.getStats(currButton->pllcase);
+
         painter.drawText(currButton->x * size, currButton->y * size - 5, Cube::getPLLName(currButton->pllcase));
 
-        if(hoveredCase == currButton->pllcase){
-            PLLCaseDrawer::drawPLLCase(painter, currButton->pllcase, currButton->x, currButton->y, size, width, true, 0);
-        }
-        else{
-            PLLCaseDrawer::drawPLLCase(painter, currButton->pllcase, currButton->x, currButton->y, size, width, false, 0);
-        }
+        PLLCaseDrawer::drawPLLCase(painter, currButton->pllcase, currButton->x, currButton->y, size, width,
+            hoveredCase == currButton->pllcase, 0, showStat, (int) (100.0 * (currStat.second - currStat.first) / currStat.second));
     }
+
+    if(showStat){
+        QString stat;
+        QPair<int, int> overall = Settings::Instance().stat.overall;
+
+        stat += Settings::Instance().getStr("errors") + ": ";
+        stat += QString::number(overall.second - overall.first) + " ";
+        stat += Settings::Instance().getStr("out of") + " ";
+        stat += QString::number(overall.second) + ". ";
+        stat += Settings::Instance().getStr("percent") + " ";
+        stat += QString::number((int) (100.0 * (overall.second - overall.first) / overall.second)) + "%";
+
+        painter.drawText(QRect(2 * size , 15 * size, 33 * size, 3 * size), stat, QTextOption(Qt::AlignCenter));
+    }
+
 }
 
 void ButtonsWidget::mouseMoveEvent(QMouseEvent *event)

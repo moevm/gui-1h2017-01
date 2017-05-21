@@ -184,11 +184,14 @@ void AboutPLLForm::setText()
 
     QString algs = Settings::Instance().getStr("algs");
     QString forStr = Settings::Instance().getStr("for");
+    QString notation = Settings::Instance().getStr("notation");
 
     algs += "\n\n" + forStr + " 0°:\n" + strAlgs.at(0);
     algs += "\n\n" + forStr + " 90°:\n" + strAlgs.at(1);
     algs += "\n\n" + forStr + " 180°:\n" + strAlgs.at(2);
     algs += "\n\n" + forStr + " 270°:\n" + strAlgs.at(3);
+
+    algs += "\n\n" + notation + " - speedsolving.com/wiki/index.php/3x3x3_notation";
 
     ui->text->setPlainText(algs);
 

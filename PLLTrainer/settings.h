@@ -5,6 +5,7 @@
 #include <QPair>
 #include <QString>
 #include "cubecolors.h"
+#include "statistics.h"
 
 enum Language{
     Russian, English, German
@@ -20,6 +21,7 @@ public:
     bool doSetupMove; // Сделать ли дополнительный ход после применения PLL алгоритма
     int attempts;
     Language language;
+    Statistics stat;
 
     QString getStr(QString str);
 

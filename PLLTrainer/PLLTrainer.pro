@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     settingsform.cpp \
     pllcasedrawer.cpp \
     aboutpllform.cpp \
-    fourrotationswidget.cpp
+    fourrotationswidget.cpp \
+    statistics.cpp
 
 HEADERS  += mainwindow.h \
     cubewidget.h \
@@ -49,7 +50,8 @@ HEADERS  += mainwindow.h \
     settingsform.h \
     pllcasedrawer.h \
     aboutpllform.h \
-    fourrotationswidget.h
+    fourrotationswidget.h \
+    statistics.h
 
 FORMS    += mainwindow.ui \
     settingsform.ui \

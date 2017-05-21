@@ -36,6 +36,8 @@ private slots:
 
     void on_pauseButton_clicked();
 
+    void on_statButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     SettingsForm *settingsform;

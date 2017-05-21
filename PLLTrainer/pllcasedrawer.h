@@ -6,7 +6,8 @@
 
 class PLLCaseDrawer{
 public:
-    static void drawPLLCase(QPainter &painter, PLLCase pllcase, int x, int y, int size, int width, bool hovered, int rotation);
+    static void drawPLLCase(QPainter &painter, PLLCase pllcase, int x, int y, int size, int width, bool hovered,
+                            int rotation, bool showStat = false, int percentsStat = 0);
     static float fTheta; // Верхний угол равнобедренного треугольника стрелки в радианах
     static int nwidth; // Ширина основания равнобедренного треугольника стрелки в пикселях
 

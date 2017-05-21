@@ -6,7 +6,8 @@ int PLLCaseDrawer::centerX = 0;
 int PLLCaseDrawer::centerY = 0;
 int PLLCaseDrawer::rot = 0;
 
-void PLLCaseDrawer::drawPLLCase(QPainter &painter, PLLCase pllcase, int x, int y, int size, int width, bool hovered, int rotation)
+void PLLCaseDrawer::drawPLLCase(QPainter &painter, PLLCase pllcase, int x, int y, int size, int width, bool hovered, int rotation,
+                                bool showStat, int percentsStat)
 {
 
     QBrush saveBrush = painter.brush();
@@ -29,113 +30,119 @@ void PLLCaseDrawer::drawPLLCase(QPainter &painter, PLLCase pllcase, int x, int y
         painter.setPen(QPen(Qt::black, width/2));
     }
 
-    switch (pllcase) {
-    case A1:
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+3)*size-size/2-width/2, x*size+size/2+width/2, (y+1)*size-size/2+width/2, true, false);
-        drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2, y*size+size/2, true, false);
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2+width/2, (x+2)*size+size/2, (y+2)*size+size/2-width/2, true, false);
-        break;
-    case A2:
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+2)*size+size/2-width/2, x*size+size/2+width/2, y*size+size/2+width/2, false, true);
-        drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2-width/2, y*size+size/2, false, true);
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2, (x+2)*size+size/2, (y+2)*size+size/2-width/2, false, true);
-        break;
-    case E:
-        drawArrow(painter, x*size+size/2, y*size+size/2-width/2, x*size+size/2, (y+2)*size+size/2+width/2, true, true);
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
-        break;
-    case Z:
-        drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2+width/2, (x+1)*size+size/2+width/2, y*size+size/2-width/2, true, true);
-        drawArrow(painter, (x+1)*size+size/2-width/2, (y+2)*size+size/2+width/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2-width/2, true, true);
-        break;
-    case H:
-        drawArrow(painter, (x+1)*size+size/2, y*size+size/2-width/2, (x+1)*size+size/2, (y+2)*size+size/2+width/2, true, true);
-        drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2, true, true);
-        break;
-    case U1:
-        drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2+width/2, (x+1)*size+size/2, (y+2)*size+size/2, true, false);
-        drawArrow(painter, (x+1)*size+size/2+width/2, (y+2)*size+size/2-width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2+width/2, true, false);
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, true, false);
-        break;
-    case U2:
-        drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2+width/2, (x+1)*size+size/2-width/2, (y+2)*size+size/2-width/2, false, true);
-        drawArrow(painter, (x+1)*size+size/2, (y+2)*size+size/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2+width/2, false, true);
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, false, true);
-        break;
-    case J1:
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
-        drawArrow(painter, (x+1)*size+size/2-width/2, (y+2)*size+size/2+width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2+width/2, true, true);
-        break;
-    case J2:
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
-        drawArrow(painter, (x+1)*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, true, true);
-        break;
-    case R1:
-        drawArrow(painter, x*size+size/2-width/2, y*size+size/2, (x+2)*size+size/2+width/2, y*size+size/2, true, true);
-        drawArrow(painter, (x+1)*size+size/2-width/2, (y+2)*size+size/2+width/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2-width/2, true, true);
-        break;
-    case R2:
-        drawArrow(painter, x*size+size/2-width/2, y*size+size/2, (x+2)*size+size/2+width/2, y*size+size/2, true, true);
-        drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2+width/2, (y+2)*size+size/2+width/2, true, true);
-        break;
-    case T:
-        drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2, true, true);
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
-        break;
-    case Y:
-        drawArrow(painter, x*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2+width/2, (y+2)*size+size/2+width/2, true, true);
-        drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2+width/2, (x+1)*size+size/2+width/2, y*size+size/2-width/2, true, true);
-        break;
-    case F:
-        drawArrow(painter, (x+1)*size+size/2, y*size+size/2-width/2, (x+1)*size+size/2, (y+2)*size+size/2+width/2, true, true);
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
-        break;
-    case V:
-        drawArrow(painter, (x+1)*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2+width/2, true, true);
-        drawArrow(painter, x*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2+width/2, (y+2)*size+size/2+width/2, true, true);
-        break;
-    case N1:
-        drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2, true, true);
-        drawArrow(painter, x*size+size/2-width/2, (y+2)*size+size/2+width/2, (x+2)*size+size/2+width/2, y*size+size/2, true, true);
-        break;
-    case N2:
-        drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2, true, true);
-        drawArrow(painter, x*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2+width/2, (y+2)*size+size/2+width/2, true, true);
-        break;
-    case G1:
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+2)*size+size/2-width/2, x*size+size/2+width/2, y*size+size/2+width/2, false, true);
-        drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2-width/2, y*size+size/2, false, true);
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2, (x+2)*size+size/2, (y+2)*size+size/2-width/2, false, true);
-        drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2, y*size+size/2, true, false);
-        drawArrow(painter, (x+1)*size+size/2+width/2, y*size+size/2+width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, true, false);
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, true, false);
-        break;
-    case G2:
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+2)*size+size/2-width/2, x*size+size/2+width/2, y*size+size/2+width/2, true, false);
-        drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2, y*size+size/2, true, false);
-        drawArrow(painter, (x+2)*size+size/2, y*size+size/2+width/2, (x+2)*size+size/2, (y+2)*size+size/2-width/2, true, false);
-        drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2-width/2, y*size+size/2+width/2, false, true);
-        drawArrow(painter, (x+1)*size+size/2, y*size+size/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, false, true);
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, false, true);
-        break;
-    case G3:
-        drawArrow(painter, x*size+size/2, (y+2)*size+size/2-width/2, x*size+size/2, y*size+size/2, true, false);
-        drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2-width/2, y*size+size/2, true, false);
-        drawArrow(painter, (x+2)*size+size/2-width/2, y*size+size/2+width/2, x*size+size/2+width/2, (y+2)*size+size/2-width/2, true, false);
-        drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2-width/2, y*size+size/2+width/2, false, true);
-        drawArrow(painter, (x+1)*size+size/2, y*size+size/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, false, true);
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, false, true);
-        break;
-    case G4:
-        drawArrow(painter, x*size+size/2, (y+2)*size+size/2-width/2, x*size+size/2, y*size+size/2+width/2, false, true);
-        drawArrow(painter, x*size+size/2, y*size+size/2, (x+2)*size+size/2-width/2, y*size+size/2, false, true);
-        drawArrow(painter, (x+2)*size+size/2-width/2, y*size+size/2+width/2, x*size+size/2+width/2, (y+2)*size+size/2-width/2, false, true);
-        drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2, y*size+size/2, true, false);
-        drawArrow(painter, (x+1)*size+size/2+width/2, y*size+size/2+width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, true, false);
-        drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, true, false);
-        break;
-    default:
-        break;
+    if(showStat){
+        painter.drawText(QRect(x * size , y * size, 3 * size, 3 * size), QString::number(percentsStat) +
+                         (percentsStat < 100? "%": ""), QTextOption(Qt::AlignCenter));
+    }
+    else{
+        switch (pllcase) {
+        case A1:
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+3)*size-size/2-width/2, x*size+size/2+width/2, (y+1)*size-size/2+width/2, true, false);
+            drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2, y*size+size/2, true, false);
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2+width/2, (x+2)*size+size/2, (y+2)*size+size/2-width/2, true, false);
+            break;
+        case A2:
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+2)*size+size/2-width/2, x*size+size/2+width/2, y*size+size/2+width/2, false, true);
+            drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2-width/2, y*size+size/2, false, true);
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2, (x+2)*size+size/2, (y+2)*size+size/2-width/2, false, true);
+            break;
+        case E:
+            drawArrow(painter, x*size+size/2, y*size+size/2-width/2, x*size+size/2, (y+2)*size+size/2+width/2, true, true);
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
+            break;
+        case Z:
+            drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2+width/2, (x+1)*size+size/2+width/2, y*size+size/2-width/2, true, true);
+            drawArrow(painter, (x+1)*size+size/2-width/2, (y+2)*size+size/2+width/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2-width/2, true, true);
+            break;
+        case H:
+            drawArrow(painter, (x+1)*size+size/2, y*size+size/2-width/2, (x+1)*size+size/2, (y+2)*size+size/2+width/2, true, true);
+            drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2, true, true);
+            break;
+        case U1:
+            drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2+width/2, (x+1)*size+size/2, (y+2)*size+size/2, true, false);
+            drawArrow(painter, (x+1)*size+size/2+width/2, (y+2)*size+size/2-width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2+width/2, true, false);
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, true, false);
+            break;
+        case U2:
+            drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2+width/2, (x+1)*size+size/2-width/2, (y+2)*size+size/2-width/2, false, true);
+            drawArrow(painter, (x+1)*size+size/2, (y+2)*size+size/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2+width/2, false, true);
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, false, true);
+            break;
+        case J1:
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
+            drawArrow(painter, (x+1)*size+size/2-width/2, (y+2)*size+size/2+width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2+width/2, true, true);
+            break;
+        case J2:
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
+            drawArrow(painter, (x+1)*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, true, true);
+            break;
+        case R1:
+            drawArrow(painter, x*size+size/2-width/2, y*size+size/2, (x+2)*size+size/2+width/2, y*size+size/2, true, true);
+            drawArrow(painter, (x+1)*size+size/2-width/2, (y+2)*size+size/2+width/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2-width/2, true, true);
+            break;
+        case R2:
+            drawArrow(painter, x*size+size/2-width/2, y*size+size/2, (x+2)*size+size/2+width/2, y*size+size/2, true, true);
+            drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2+width/2, (y+2)*size+size/2+width/2, true, true);
+            break;
+        case T:
+            drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2, true, true);
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
+            break;
+        case Y:
+            drawArrow(painter, x*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2+width/2, (y+2)*size+size/2+width/2, true, true);
+            drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2+width/2, (x+1)*size+size/2+width/2, y*size+size/2-width/2, true, true);
+            break;
+        case F:
+            drawArrow(painter, (x+1)*size+size/2, y*size+size/2-width/2, (x+1)*size+size/2, (y+2)*size+size/2+width/2, true, true);
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2-width/2, (x+2)*size+size/2, (y+2)*size+size/2+width/2, true, true);
+            break;
+        case V:
+            drawArrow(painter, (x+1)*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2+width/2, true, true);
+            drawArrow(painter, x*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2+width/2, (y+2)*size+size/2+width/2, true, true);
+            break;
+        case N1:
+            drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2, true, true);
+            drawArrow(painter, x*size+size/2-width/2, (y+2)*size+size/2+width/2, (x+2)*size+size/2+width/2, y*size+size/2, true, true);
+            break;
+        case N2:
+            drawArrow(painter, x*size+size/2-width/2, (y+1)*size+size/2, (x+2)*size+size/2+width/2, (y+1)*size+size/2, true, true);
+            drawArrow(painter, x*size+size/2-width/2, y*size+size/2-width/2, (x+2)*size+size/2+width/2, (y+2)*size+size/2+width/2, true, true);
+            break;
+        case G1:
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+2)*size+size/2-width/2, x*size+size/2+width/2, y*size+size/2+width/2, false, true);
+            drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2-width/2, y*size+size/2, false, true);
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2, (x+2)*size+size/2, (y+2)*size+size/2-width/2, false, true);
+            drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2, y*size+size/2, true, false);
+            drawArrow(painter, (x+1)*size+size/2+width/2, y*size+size/2+width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, true, false);
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, true, false);
+            break;
+        case G2:
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+2)*size+size/2-width/2, x*size+size/2+width/2, y*size+size/2+width/2, true, false);
+            drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2, y*size+size/2, true, false);
+            drawArrow(painter, (x+2)*size+size/2, y*size+size/2+width/2, (x+2)*size+size/2, (y+2)*size+size/2-width/2, true, false);
+            drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2-width/2, y*size+size/2+width/2, false, true);
+            drawArrow(painter, (x+1)*size+size/2, y*size+size/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, false, true);
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, false, true);
+            break;
+        case G3:
+            drawArrow(painter, x*size+size/2, (y+2)*size+size/2-width/2, x*size+size/2, y*size+size/2, true, false);
+            drawArrow(painter, x*size+size/2+width/2, y*size+size/2, (x+2)*size+size/2-width/2, y*size+size/2, true, false);
+            drawArrow(painter, (x+2)*size+size/2-width/2, y*size+size/2+width/2, x*size+size/2+width/2, (y+2)*size+size/2-width/2, true, false);
+            drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2-width/2, y*size+size/2+width/2, false, true);
+            drawArrow(painter, (x+1)*size+size/2, y*size+size/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, false, true);
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, false, true);
+            break;
+        case G4:
+            drawArrow(painter, x*size+size/2, (y+2)*size+size/2-width/2, x*size+size/2, y*size+size/2+width/2, false, true);
+            drawArrow(painter, x*size+size/2, y*size+size/2, (x+2)*size+size/2-width/2, y*size+size/2, false, true);
+            drawArrow(painter, (x+2)*size+size/2-width/2, y*size+size/2+width/2, x*size+size/2+width/2, (y+2)*size+size/2-width/2, false, true);
+            drawArrow(painter, x*size+size/2+width/2, (y+1)*size+size/2-width/2, (x+1)*size+size/2, y*size+size/2, true, false);
+            drawArrow(painter, (x+1)*size+size/2+width/2, y*size+size/2+width/2, (x+2)*size+size/2-width/2, (y+1)*size+size/2-width/2, true, false);
+            drawArrow(painter, (x+2)*size+size/2-width/2, (y+1)*size+size/2, x*size+size/2+width/2, (y+1)*size+size/2, true, false);
+            break;
+        default:
+            break;
+        }
     }
 
     painter.setPen(savePen);
