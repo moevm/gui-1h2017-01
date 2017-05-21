@@ -29,6 +29,8 @@ void AboutPLLForm::showPLLCase(PLLCase pllcase)
 
     this->setWindowTitle(Cube::getPLLName(pllcase));
 
+    ui->text->setOpenExternalLinks(true);
+
     setText();
 
     show();
@@ -186,13 +188,13 @@ void AboutPLLForm::setText()
     QString forStr = Settings::Instance().getStr("for");
     QString notation = Settings::Instance().getStr("notation");
 
-    algs += "\n\n" + forStr + " 0°:\n" + strAlgs.at(0);
-    algs += "\n\n" + forStr + " 90°:\n" + strAlgs.at(1);
-    algs += "\n\n" + forStr + " 180°:\n" + strAlgs.at(2);
-    algs += "\n\n" + forStr + " 270°:\n" + strAlgs.at(3);
+    algs += "<br><br>" + forStr + " 0°:<br>" + strAlgs.at(0);
+    algs += "<br><br>" + forStr + " 90°:<br>" + strAlgs.at(1);
+    algs += "<br><br>" + forStr + " 180°:<br>" + strAlgs.at(2);
+    algs += "<br><br>" + forStr + " 270°:<br>" + strAlgs.at(3);
 
-    algs += "\n\n" + notation + " - speedsolving.com/wiki/index.php/3x3x3_notation";
+    algs += "<br><br><a href=\"http://speedsolving.com/wiki/index.php/3x3x3_notation\">" + notation + "</a>";
 
-    ui->text->setPlainText(algs);
+    ui->text->setHtml(algs);
 
 }
