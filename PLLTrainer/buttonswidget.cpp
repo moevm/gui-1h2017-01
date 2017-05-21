@@ -35,8 +35,10 @@ void ButtonsWidget::paintEvent(QPaintEvent *)
 
         painter.drawText(currButton->x * size, currButton->y * size - 5, Cube::getPLLName(currButton->pllcase));
 
+        int stat = currStat.second ? 100.0 * (currStat.second - currStat.first) / currStat.second : 0;
+
         PLLCaseDrawer::drawPLLCase(painter, currButton->pllcase, currButton->x, currButton->y, size, width,
-            hoveredCase == currButton->pllcase, 0, showStat, (int) (100.0 * (currStat.second - currStat.first) / currStat.second));
+            hoveredCase == currButton->pllcase, 0, showStat, stat);
     }
 
     if(showStat){
