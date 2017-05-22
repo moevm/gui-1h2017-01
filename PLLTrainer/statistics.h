@@ -8,7 +8,7 @@
 
 class Statistics
 {
-    const QString statFile = "C:\Program Files (x86)\PLLTrainer\statistics.txt";
+    const QString statFile = "C:\\Program Files (x86)\\PLLTrainer\\statistics.txt";
     QMap<PLLCase, QPair<int, int>> map;
 
 public:

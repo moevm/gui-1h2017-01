@@ -29,16 +29,18 @@ void ButtonsWidget::paintEvent(QPaintEvent *)
 
     painter.setFont(QFont("arial", size));
 
+    int currStats;
+
     for(ButtonCoordinate* currButton: coordinates){
 
         currStat = Settings::Instance().stat.getStats(currButton->pllcase);
 
         painter.drawText(currButton->x * size, currButton->y * size - 5, Cube::getPLLName(currButton->pllcase));
 
-        int stat = currStat.second ? 100.0 * (currStat.second - currStat.first) / currStat.second : 0;
+        currStats = currStat.second?  100.0 * (currStat.second - currStat.first) / currStat.second: 0;
 
         PLLCaseDrawer::drawPLLCase(painter, currButton->pllcase, currButton->x, currButton->y, size, width,
-            hoveredCase == currButton->pllcase, 0, showStat, stat);
+            hoveredCase == currButton->pllcase, 0, showStat, currStats);
     }
 
     if(showStat){
@@ -50,7 +52,9 @@ void ButtonsWidget::paintEvent(QPaintEvent *)
         stat += Settings::Instance().getStr("out of") + " ";
         stat += QString::number(overall.second) + ". ";
         stat += Settings::Instance().getStr("percent") + " ";
-        stat += QString::number((int) (100.0 * (overall.second - overall.first) / overall.second)) + "%";
+
+        int overallStat = overall.second ? 100.0 * (overall.second - overall.first) / overall.second : 0;
+        stat += QString::number(overallStat) + "%";
 
         painter.drawText(QRect(2 * size , 15 * size, 33 * size, 3 * size), stat, QTextOption(Qt::AlignCenter));
     }
