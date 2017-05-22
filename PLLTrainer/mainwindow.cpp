@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    setWindowIcon(QIcon(QString("icon.ico")));
     ui->setupUi(this);
     qsrand(QTime::currentTime().msec());
     this->cubeManager = new CubeManager(ui->cubeWidget->cube);
