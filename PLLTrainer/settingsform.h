@@ -29,7 +29,7 @@ public:
 
     void updateUI();
 
-    const QString settingsFile = "settings.txt";
+    const QString settingsFile = "C:\Program Files (x86)\PLLTrainer\settings.txt";
 
 
 private slots:
